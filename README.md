@@ -1,7 +1,7 @@
 # Amigo Animal
 ## Descripcion:
 
-Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas fisica. La web tendra a disposicion de los visitantes el catalogo disponible en la tienda asi como ofrece la posibilidad de realizar compras online a clientes registrados en la plataforma (mas no se realiza envio a casa, es recogida en tienda). La compra de articulos supone la participacion en un sistema de puntos, gracias a  los cuales se pueden disponer de descuentos o productos gratuitos. De igual forma, la tienda fisica tiene un servicio de peluqueria/clinica veterinaria (falta por concretar). Mediante la web se puede concretar una cita para poder llevarlos clientes a las mascotas. Esto solo es posible si se encuentra registrado como cliente. De lo contrario es necesario llamar para concretar dicha cita.
+Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas fisica. La web tendra a disposicion de los visitantes el catalogo disponible en la tienda asi como ofrece la posibilidad de realizar compras online a clientes registrados en la plataforma (mas no se realiza envio a casa, es recogida en tienda). La compra de articulos supone la participacion en un sistema de puntos, gracias a  los cuales se pueden disponer de descuentos o productos gratuitos. De igual forma, la tienda fisica tiene un servicio de veterinaria . Mediante la web se puede concretar una cita para poder llevar los clientes a las mascotas. Esto solo es posible si se encuentra registrado como cliente. De lo contrario seria necesario llamar para concretar dicha cita o presentarse fisicamente.
 
 ## Entidades:
 
@@ -12,7 +12,7 @@ Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas f
 * Mascotas: Las mascotas seran atendidas en las clinica veterinaria. Normalmente los clientes dejan que sus mascotas reciban el tratamiento y pasen a recogerlas otro dia. Por ello la mascota tendra un dueño asociado, asi como rasgos identificacivos (Especie, raza, nombre, color...)
 
 ## Servicio Interno
- O servicio de mensajeria con una "Factura" de lo comprado o ¿Calendario de la clinica?
+ O servicio de mensajeria con una "Factura" de lo comprado o ¿Calendario de la clinica? En el calendario se indicaria un rango de fecha y hora deseable y se asignara lo mas pronto posible.
 ## Integrantes
 
 Alejandro Checa Sanchez-Isasi: URJCheca
