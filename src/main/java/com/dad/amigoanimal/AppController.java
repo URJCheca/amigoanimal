@@ -18,6 +18,16 @@ public class AppController {
 	public String loginController (Model model) {
 		return "signin_template";
 	}
+	
+	@RequestMapping ("/verify_signin")
+	public String varifySigninController (Model model,@RequestParam String usuario, @RequestParam String contrasena) {
+			
+		model.addAttribute("nombre_provisional",usuario);
+		model.addAttribute ("password_provisional", contrasena);
+		model.addAttribute("fail", true);
+		
+		return "sin_template";
+	}
 	//Redirecciona a la pagina de registro
 	@RequestMapping ("/signup")
 	public String registerController (Model model) {
@@ -37,6 +47,7 @@ public class AppController {
 		model.addAttribute("password",true);
 		return "signup_template";
 	}
+	
 	@RequestMapping ("/catalogo")
 	public String catalogoController (Model model) {
 		return "catalogo_template";
