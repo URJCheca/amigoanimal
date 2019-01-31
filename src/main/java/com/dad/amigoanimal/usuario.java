@@ -12,8 +12,7 @@ public class usuario {
 
 	public usuario(String name ,Type type) {
 		this.name = name;
-		this.type = type;
-		//this.tipo = tipo; //ints o enum?
+		this.type = type; //mejor int?
 	}
 
 	public String getName() {
