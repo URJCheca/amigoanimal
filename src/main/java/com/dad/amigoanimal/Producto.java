@@ -1,15 +1,26 @@
 package com.dad.amigoanimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Producto {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private String name;
 	private float price;
+	private String description;
 	//private String photo;
 	private String category;
 	
-	public Producto(String name, float price, String category) {
+	public Producto(String name, float price,String description, String category) {
 		this.name = name;
 		this.price = price;
+		this.description = description;
 		this.category = category;
 	}
 
@@ -35,6 +46,14 @@ public class Producto {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

@@ -1,9 +1,14 @@
 package com.dad.amigoanimal;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Clinica {
 
-
+	@OneToMany
 	private  Usuario[]  clientes;
+	@OneToMany
 	private Mascota[] mascotas;
 	private int salas;
 	public Clinica(Usuario clientes, Mascota[] mascotas, int salas) {
