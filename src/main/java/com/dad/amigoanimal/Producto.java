@@ -16,12 +16,16 @@ public class Producto {
 	private String description;
 	//private String photo;
 	private String category;
+	private int stock;
 	
-	public Producto(String name, float price,String description, String category) {
+
+	public Producto(String name, float price,String description, String category, int stock) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.category = category;
+		this.stock= stock;
+				
 	}
 
 	public String getName() {
@@ -56,5 +60,11 @@ public class Producto {
 		this.description = description;
 	}
 	
-	
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 }
