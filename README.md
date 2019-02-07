@@ -16,4 +16,5 @@ Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas f
 ## Integrantes
 
 Alejandro Checa Sanchez-Isasi: URJCheca
+
 Jose Antonio Medina Martinez: JosexAntonio
