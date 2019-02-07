@@ -1,28 +1,39 @@
 package com.dad.amigoanimal;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+@Entity
 public class Mascota {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
-	private String owner;
+	@ManyToOne
+	private Usuario owner;
 	private String name;
 	private String especie;
 	private String raza;
 	private String color;
-	private String id;
 	
-	public Mascota(String owner, String name, String especie, String raza, String color, String id) {
+	
+	public Mascota(Usuario owner, String name, String especie, String raza, String color, String id) {
 		this.owner = owner;
 		this.name = name;
 		this.especie = especie;
 		this.raza = raza;
 		this.color = color;
-		this.id = id;
+		
 	}
 	
-	public String getOwner() {
+	public Usuario getOwner() {
 		return owner;
 	}
 	
-	public void setOwner(String owner) {
+	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
 	
@@ -58,12 +69,4 @@ public class Mascota {
 		this.color = color;
 	}
 	
-	public String getId() {
-		return id;
-	}
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-
 }
