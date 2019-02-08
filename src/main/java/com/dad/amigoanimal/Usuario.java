@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -11,6 +12,9 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	//@OneToMany
+	//private List <Mascota>  mascotas;
+	//Si es cliente/Herencia?
 	private String name;
 	private String email;
 	private String document;
