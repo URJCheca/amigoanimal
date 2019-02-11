@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map; 
 
 public class Carrito {
-
+/*
 	private Producto[] productos;
 	private float precioTotal;
 
@@ -33,5 +33,5 @@ public class Carrito {
 	public float getPrecioTotal() {
 		return precioTotal;
 	}
-
+*/
 }
