@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	{{#productos}}
+		{{name}}
+		{{price}}
+		{{description}}
+		{{stock}}
+	{{/productos}}
+	<form action="busqueda_producto">
+		<input type= 'submit' value='Busqueda Avanzada'/>
+	</form>
+	{{#trabajador}}
+	<form action="alta_producto">
+		<input type= 'submit' value='Registrar un Producto'/>
+	</form>
+	{{/trabajador}}
+</body>
+</html>

@@ -1,5 +1,8 @@
 package com.dad.amigoanimal;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 //La clase contendra todas las redirecciones posibles desde la pagina principal
 @Controller
 public class AppController {
+	
+	
+	@Autowired
+	private ProductoRepository productoRepositorio;
+	
 	//Redirecciona a la pagina principal
 	@RequestMapping ("/greeting")
 	public String greetingController (Model model) {
@@ -35,7 +43,7 @@ public class AppController {
 	}
 	
 	@RequestMapping ("/verify_signup")
-	public String varifySignupController (Model model,@RequestParam String usuario, @RequestParam String contrasena,
+	public String verifySignupController (Model model,@RequestParam String usuario, @RequestParam String contrasena,
 			@RequestParam String contrasena2,@RequestParam String email) {
 		if (contrasena.equals(contrasena2)){
 			
@@ -50,6 +58,9 @@ public class AppController {
 	
 	@RequestMapping ("/catalogo")
 	public String catalogoController (Model model) {
+		List<Producto> lista = productoRepositorio.findAll();
+		model.addAttribute("productos",lista);
+		
 		return "catalogo_template";
 	}
 	@RequestMapping ("/clinica")
