@@ -1,5 +1,7 @@
 package com.dad.amigoanimal;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,18 +14,18 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	//@OneToMany
-	//private List <Mascota>  mascotas;
-	//Si es cliente/Herencia?
+	
+	@OneToMany
+	private List<Mascota>  mascotas;
 	private String name;
 	private String email;
 	private String document;
-	private int type;
+	private int rol;
 
 
-	public Usuario(String name ,int type) {
+	public Usuario(String name ,int rol) {
 		this.name = name;
-		this.type = type;
+		this.rol = rol;
 	}
 
 	public String getName() {
@@ -34,8 +36,8 @@ public class Usuario {
 		this.name = name;
 	}
 	
-	public int getType() {
-		return type;
+	public int getRol() {
+		return rol;
 	}
 
 	public String getDocument() {

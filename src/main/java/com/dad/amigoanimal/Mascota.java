@@ -13,15 +13,15 @@ public class Mascota {
 	private Long id;
 	
 	@ManyToOne
-	//private Usuario owner;
+	private Usuario owner;
 	private String name;
 	private String especie;
 	private String raza;
 	private String color;
 	
 	
-	public Mascota(/*Usuario owner,*/ String name, String especie, String raza, String color, String id) {
-		//this.owner = owner;
+	public Mascota(Usuario owner, String name, String especie, String raza, String color, String id) {
+		this.owner = owner;
 		this.name = name;
 		this.especie = especie;
 		this.raza = raza;
@@ -29,13 +29,13 @@ public class Mascota {
 		
 	}
 	
-	/*public Usuario getOwner() {
+	public Usuario getOwner() {
 		return owner;
 	}
 	
 	public void setOwner(Usuario owner) {
 		this.owner = owner;
-	}*/
+	}
 	
 	public String getName() {
 		return name;

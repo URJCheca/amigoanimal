@@ -4,13 +4,11 @@ import java.util.HashMap;
 import java.util.Map; 
 
 public class Carrito {
-/*
-	private Producto[] productos;
+
 	private float precioTotal;
 
 	HashMap<Producto, Integer> cosas = new HashMap<>(); 
 	public Carrito() {
-		productos = null;
 		precioTotal = 0;
 	}
 
@@ -20,7 +18,8 @@ public class Carrito {
 		} else {
 			cosas.put(producto, quantity);
 		}
-		cosas.forEach((k,v) -> precioTotal+= k.price * v;
+		// precioTotal += producto.price * quantity;
+		//cosas.forEach((k,v) -> precioTotal+= k.price * v;
 	}
 	public void removeProducto(Producto producto, int quantity) {
 		if (cosas.containsKey(producto)) {
@@ -31,7 +30,8 @@ public class Carrito {
 	}
 
 	public float getPrecioTotal() {
+		precioTotal = 0;
+		cosas.forEach((k,v) -> precioTotal+= k.getPrice() * v);
 		return precioTotal;
 	}
-*/
 }
