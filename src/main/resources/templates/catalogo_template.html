@@ -10,6 +10,10 @@
 		{{price}}
 		{{description}}
 		{{stock}}
+		<form action="aniadir_carrito">
+			<input type="hidden" name= {{name}} readonly/>
+			<input type="submit" value="Añadir al carrito"> 
+		</form>
 	{{/productos}}
 	<form action="busqueda_producto">
 		<input type= 'submit' value='Busqueda Avanzada'/>

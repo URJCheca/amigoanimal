@@ -56,13 +56,7 @@ public class AppController {
 		return "signup_template";
 	}
 	
-	@RequestMapping ("/catalogo")
-	public String catalogoController (Model model) {
-		List<Producto> lista = productoRepositorio.findAll();
-		model.addAttribute("productos",lista);
-		
-		return "catalogo_template";
-	}
+	
 	@RequestMapping ("/clinica")
 	public String clinicaController (Model model) {
 		return "clinica_template";

@@ -12,14 +12,14 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-	private float price;
+	private int price;
 	private String description;
 	//private String photo;
 	private String category;
 	private int stock;
 	
 
-	public Producto(String name, float price,String description, String category, int stock) {
+	public Producto(String name, int price,String description, String category, int stock) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -36,11 +36,11 @@ public class Producto {
 		this.name = name;
 	}
 
-	public float getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
