@@ -45,8 +45,10 @@ public class ClinicaController {
 		if (user.size()>0) {
 			Mascota mascotaNueva = new Mascota(user.get(0), name, especie, raza, color);
 			//clinicaRepositorio.saveMascota(mascotaNueva);
+			System.out.println("Mascota " + name + " de " + owner + " registrada con exito");
 			return "greeting_template";
 		}
+		System.out.println("No se encuentra el dueño");
 		return "clinicaAlta_template";
 	}
 	
@@ -58,8 +60,10 @@ public class ClinicaController {
 		if (user.size()>0) {
 			Mascota mascotaNueva = new Mascota(user.get(0), name, especie, raza, color);
 			//clinicaRepositorio.deleteMascota(mascotaNueva);
+			System.out.println("Mascota " + name + " de " + owner + " retirada con exito");
 			return "greeting_template";
 		}
+		System.out.println("No se encuentra el dueño");
 		return "clinicaBaja_template";
 	}
 	

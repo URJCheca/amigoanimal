@@ -34,8 +34,10 @@ public class UsuarioController {
 		if (contrasena.equals(contrasena2)) {
 			Usuario usuario_nuevo = new Usuario(nombre, contrasena, documento, email, 1); 
 			usuarioRepositorio.save(usuario_nuevo);
+			System.out.println("Registrado con exito: " + nombre);
 			return "greeting_template";
 		} else {
+			System.out.println("Contraseñas diferentes");
 			return "signup_template";
 		}
 	}
@@ -48,10 +50,13 @@ public class UsuarioController {
 		
 		if (user.size()>0) {
 			if (user.get(0).getContrasena().equals(contrasena)) {
+				System.out.println("Logeado con exito: " + nombre);
 				return "greeting_template";
-			}
+			} /*else {
+				System.out.println("Contraseña equivocada");
+			}*/
 		}
-		
+		System.out.println("Usuario o contraseña no compatibles ");
 		return "signin_template";
 	}
 	

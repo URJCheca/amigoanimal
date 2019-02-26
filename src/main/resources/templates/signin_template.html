@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="user_login">
-{{#fail}}
- Datos de acceso incorrectos. Intentelo de nuevo
-{{/fail}}
-		<p>Usuario :</p><input type='text' name='nombre' />
-		<p>Password :</p><input type="password" name='contrasena' />
-		<input type='submit' value='Registrar' />
+<div class="baseImage">
+	<div class="registroText">
+		<form action="user_login">
+		{{#fail}}
+		 Datos de acceso incorrectos. Intentelo de nuevo
+		{{/fail}}
+				<p>Usuario :</p><input type='text' name='nombre' />
+				<p>Password :</p><input type="password" name='contrasena' />
+				<br>
+				<br>
+				<input type='submit' class="baseButton" value='Registrar' />
+	</div>
+</div>				
 </form>
 </body>
 </html>
