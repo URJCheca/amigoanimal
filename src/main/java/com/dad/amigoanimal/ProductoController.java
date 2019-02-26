@@ -1,6 +1,7 @@
 package com.dad.amigoanimal;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -112,13 +113,32 @@ public class ProductoController {
 		return "bajaproducto_template";
 		}else {
 			productoRepositorio.delete(producto.get(0));
-			return "barradoexitoso_template";
+			return "borradoexitoso_template";
 		}
+	}
+	
+	@GetMapping("/modificar_producto")
+	public String ModificarProducto(Model model, @RequestParam String id) {
+		long longID=Long.parseLong(id);
+		Optional<Producto> optional=productoRepositorio.findById(longID);
+		Producto producto= optional.get();
+		model.addAttribute("id", id);
+		model.addAttribute("nombre", producto.getName());
+		model.addAttribute("precio", producto.getPrice());
+		model.addAttribute("tipo", producto.getCategory());
+		model.addAttribute("descripcion", producto.getDescription());
+		model.addAttribute("stock", producto.getStock());
+			return "modificarproducto_template";
+	}
+	@GetMapping("/cambiar_producto")
+	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String nombre,@RequestParam int precio,@RequestParam String tipo,@RequestParam String descripcion,@RequestParam int stock) {
+		long longID=Long.parseLong(id);
+		Producto producto_nuevo = new Producto(nombre, precio,descripcion,tipo,stock); 
+		productoRepositorio.save(producto_nuevo);
+		productoRepositorio.delete(productoRepositorio.findById(longID).get());
+			return "cambioexitoso_template";
 	}
 			
 		
-		
-		
-		
-	}
+}
 

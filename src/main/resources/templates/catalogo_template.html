@@ -14,6 +14,10 @@
 			<input type="hidden" name= {{name}} readonly/>
 			<input type="submit" value="Añadir al carrito"> 
 		</form>
+		<form action="modificar_producto">
+			<input type="hidden" name= {{id}} readonly/>
+			<input type="submit" value="Modificar"> 
+		</form>
 	{{/productos}}
 	<form action="busqueda_producto">
 		<input type= 'submit' value='Busqueda Avanzada'/>
