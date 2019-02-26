@@ -20,7 +20,7 @@ public class Mascota {
 	private String color;
 	
 	
-	public Mascota(Usuario owner, String name, String especie, String raza, String color, String id) {
+	public Mascota(Usuario owner, String name, String especie, String raza, String color/*, String id*/) {
 		this.owner = owner;
 		this.name = name;
 		this.especie = especie;

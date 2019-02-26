@@ -5,11 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="user_login">
+<form action="verify_signin" method="post">
 {{#fail}}
  Datos de acceso incorrectos. Intentelo de nuevo
 {{/fail}}
-		<p>Usuario :</p><input type='text' name='nombre' />
+		<p>Usuario :</p><input type='text' name='usuario' />
 		<p>Password :</p><input type="password" name='contrasena' />
 		<input type='submit' value='Registrar' />
 </form>

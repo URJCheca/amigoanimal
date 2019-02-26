@@ -15,16 +15,24 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToMany
-	private List<Mascota>  mascotas;
+	/*@OneToMany
+	private List<Mascota>  mascotas;*/
+	
 	private String name;
 	private String email;
 	private String document;
+	private String contrasena;
 	private int rol;
 
-
-	public Usuario(String name ,int rol) {
+	
+	public Usuario() {
+	}
+	
+	public Usuario(String name, String contrasena, String document, String email, int rol) {
 		this.name = name;
+		this.contrasena = contrasena;
+		this.document = document;
+		this.email = email;
 		this.rol = rol;
 	}
 
@@ -54,6 +62,14 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 
