@@ -15,20 +15,21 @@
 			<input type="submit" value="Añadir al carrito"> 
 		</form>
 		<form action="modificar_producto">
-			<input type="hidden" name= {{id}} readonly/>
+			<input type="hidden" name= id value={{id}} readonly/>
 			<input type="submit" value="Modificar"> 
 		</form>
 	{{/productos}}
 	<form action="busqueda_producto">
 		<input type= 'submit' value='Busqueda Avanzada'/>
 	</form>
-	<!--  {{#trabajador}}-->
 	<form action="alta_producto">
 		<input type= 'submit' value='Registrar un Producto'/>
 	</form>
 	<form action="baja_producto">
 		<input type= 'submit' value='Borrar un Producto'/>
 	</form>
+	<!--  {{#trabajador}}-->
+	
 	<!-- {{/trabajador}}-->
 </body>
 </html>

@@ -6,15 +6,16 @@
 </head>
 <body>
 <form action="cambiar_producto">
-	{{#producto}}
-		<input type="hidden" name= {{id}} readonly/>
+	
+		<input type="hidden" name=id value= {{id}} readonly/>
 		<p>Nombre :<input type='text' name='name' value={{nombre}} /></p>
 		<p>Precio :<input type='number' name='price' value={{precio}} /></p>
-		<p>Tipo :<input type='text' name='categoty' value={{tipo}}/></p>
+		<p>Tipo :<input type='text' name='category' value={{tipo}}/></p>
 		<p>Descripcion :</p>
-		<textarea rows='4' cols='50' name='descripcion' >{{descripcion}}</textarea>
+		<textarea rows='4' cols='50' name='description' >{{descripcion}}</textarea>
 		<p>Stock:</p> <input type='number' name='stock' value={{stock}}>
 	    <input type='submit' value='Modificar' />
+	
 	    {{#error}}
 	    <p> El producto que intenta registrar ya existe. Por favor revise los datos</p>
 	    {{/error}}
