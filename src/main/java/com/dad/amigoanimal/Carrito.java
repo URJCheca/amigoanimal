@@ -12,7 +12,6 @@ public class Carrito {
 
 	HashMap<Producto, Integer> cosas = new HashMap<>(); 
 	public Carrito() {
-		productos = new ArrayList <Producto>();
 		precioTotal = 0;
 	}
 

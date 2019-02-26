@@ -20,12 +20,19 @@ public class Usuario {
 	private String name;
 	private String email;
 	private String document;
-	private int type;
+	private String contrasena;
+	private int rol;
 
-
-	public Usuario(String name ,int type) {
+	
+	public Usuario() {
+	}
+	
+	public Usuario(String name, String contrasena, String document, String email, int rol) {
 		this.name = name;
-		this.type = type;
+		this.contrasena = contrasena;
+		this.document = document;
+		this.email = email;
+		this.rol = rol;
 	}
 
 	public String getName() {
@@ -36,8 +43,8 @@ public class Usuario {
 		this.name = name;
 	}
 	
-	public int getType() {
-		return type;
+	public int getRol() {
+		return rol;
 	}
 
 	public String getDocument() {
@@ -54,6 +61,14 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 

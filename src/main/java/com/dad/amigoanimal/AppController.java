@@ -22,7 +22,7 @@ public class AppController {
 		return "greeting_template";
 	}
 	//Redirecciona a la pagina de login
-	@RequestMapping ("/signin")
+	/*@RequestMapping ("/signin")
 	public String loginController (Model model) {
 		return "signin_template";
 	}
@@ -35,14 +35,14 @@ public class AppController {
 		model.addAttribute("fail", true);
 		
 		return "sin_template";
-	}
+	}*/
 	//Redirecciona a la pagina de registro
-	@RequestMapping ("/signup")
+	/*@RequestMapping ("/signup")
 	public String registerController (Model model) {
 		return "signup_template";
-	}
+	}*/
 	
-	@RequestMapping ("/verify_signup")
+	/*@RequestMapping ("/verify_signup")
 	public String verifySignupController (Model model,@RequestParam String usuario, @RequestParam String contrasena,
 			@RequestParam String contrasena2,@RequestParam String email) {
 		if (contrasena.equals(contrasena2)){
@@ -55,12 +55,12 @@ public class AppController {
 		model.addAttribute("password",true);
 		return "signup_template";
 	}
+	*/
 	
-	
-	@RequestMapping ("/clinica")
+	/*@RequestMapping ("/clinica")
 	public String clinicaController (Model model) {
 		return "clinica_template";
-	}
+	}*/
 	
 
 }
