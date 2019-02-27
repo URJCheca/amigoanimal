@@ -18,6 +18,10 @@
 			<input type="hidden" name= id value={{id}} readonly/>
 			<input type="submit" value="Modificar"> 
 		</form>
+		<form action="borrar_producto">
+			<input type="hidden" name= id value={{id}} readonly/>
+		<input type= 'submit' value='Borrar'/>
+	</form>
 	{{/productos}}
 	<form action="busqueda_producto">
 		<input type= 'submit' value='Busqueda Avanzada'/>
@@ -25,9 +29,7 @@
 	<form action="alta_producto">
 		<input type= 'submit' value='Registrar un Producto'/>
 	</form>
-	<form action="baja_producto">
-		<input type= 'submit' value='Borrar un Producto'/>
-	</form>
+	
 	<!--  {{#trabajador}}-->
 	
 	<!-- {{/trabajador}}-->

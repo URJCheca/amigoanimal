@@ -20,8 +20,17 @@ public class ProductoController {
 	
 	@PostConstruct
 	public void init() {
-		productoRepositorio.save(new Producto("Catzilla", 14, "Comida para gatos", "Alimentacion", 5));
-		System.out.print("se ha creado el producto");
+		productoRepositorio.save(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
+		productoRepositorio.save(new Producto("Transportin grande", 20, "Transportin de grandes dimensiones para perros", "Viaje", 5));
+		productoRepositorio.save(new Producto("Bun bunny", 5, "Complemento alimenticio para conejos", "Alimentacion",20));
+		productoRepositorio.save(new Producto("Arenero", 10, "Arenero para gatos", "Higiene", 15));
+		productoRepositorio.save(new Producto("Anti-lombrices", 8, "Pastillas anti parasitarias para perros y gatos", "Salud", 50));
+		productoRepositorio.save(new Producto("Soga mordedora", 8, "Juguete para perros hecho de cuerda resistente para jugar al tira y afloja", "Juguetes", 10));
+		productoRepositorio.save(new Producto("Kit Correa externsible", 13, "Correa extensible hasta 4 metros con collar incluido", "Accesorios", 7));
+		productoRepositorio.save(new Producto("Champu para perros", 7, "Champu especialmente diseñado para perros. Deja el pelo suave y brillante", "Higiene", 12));
+
+		
+		
 	}
 	@RequestMapping ("/catalogo")
 	public String catalogoController (Model model) {
@@ -101,20 +110,16 @@ public class ProductoController {
 		}
 	}
 		
-	@GetMapping("/baja_producto")
-	public String BajaProducto(Model model) {
-			return "bajaproducto_template";
-	}
+
 	@GetMapping("/borrar_producto")
-	public String BorrarProducto(Model model, @RequestParam String nombre) {
-		List<Producto> producto=productoRepositorio.findByName(nombre);
-		if (producto.isEmpty()){
-			model.addAttribute("error", true);
-		return "bajaproducto_template";
-		}else {
-			productoRepositorio.delete(producto.get(0));
-			return "borradoexitoso_template";
-		}
+	public String BorrarProducto(Model model, @RequestParam String id) {
+		System.out.println(id);
+		long longID=Long.parseLong(id);
+		Optional<Producto> optional=productoRepositorio.findById(longID);
+		Producto producto= optional.get();
+		productoRepositorio.delete(producto);
+		return "borradoexitoso_template";
+		
 	}
 	
 	@GetMapping("/modificar_producto")
