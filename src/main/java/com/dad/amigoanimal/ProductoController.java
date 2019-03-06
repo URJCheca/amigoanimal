@@ -1,11 +1,17 @@
 package com.dad.amigoanimal;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +23,8 @@ public class ProductoController {
 	
 	@Autowired
 	private ProductoRepository productoRepositorio;
+	
+	int numElem= 2;
 	
 	@PostConstruct
 	public void init() {
@@ -33,17 +41,56 @@ public class ProductoController {
 		
 	}
 	@RequestMapping ("/catalogo")
-	public String catalogoController (Model model) {
-		List<Producto> lista = productoRepositorio.findAll();
+	public String catalogoController (Model model, @RequestParam int numPag) {
+		Carrito carrito= new Carrito();
+		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(numPag, numElem));
+		
 		model.addAttribute("productos",lista);
+		model.addAttribute("carrito",carrito);
+		model.addAttribute("numPag", numPag+1);
 		
 		return "catalogo_template";
 	}
 	
+	
+	@RequestMapping ("/ver_carrito")
+	public String  verCarrito (Model model, Carrito carrito) {
+		
+		Set<Entry<Producto, Integer>> cosas = carrito.getCosas();
+		for (Entry<Producto, Integer> cosa : cosas) {
+			   Producto key = cosa.getKey();
+			   Integer value = cosa.getValue();
+			  model.addAttribute("clave", key);
+			  model.addAttribute("valor", value);
+			} 
+
+		model.addAttribute("precio",carrito.getPrecioTotal());
+		
+		return "carrito_template";
+		
+	}
+	@RequestMapping ("/aniadir_carrito")
+	public String aniadirCarrito (Model model, String id, int quantity, Carrito carrito) {
+
+		long longID=Long.parseLong(id);
+		Optional<Producto> optional=productoRepositorio.findById(longID);
+		Producto producto= optional.get();
+		carrito.addProducto(producto, quantity);
+		System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
+		List<Producto> lista = productoRepositorio.findAll();
+		model.addAttribute("productos",lista);
+		model.addAttribute("carrito",carrito);
+		model.addAttribute("numPag", 1);
+		
+		return "catalogo_template";
+	}
+	
+
+	
 	@GetMapping ("/busqueda_avanzada_producto")
-	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio) {
-		System.out.println (nombre+" "+tipo+" "+precio);
-		List<Producto> lista;
+	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
+		Page<Producto> lista;
+		int sigPag= numPag+1;
 		
 		//realizar para cada una de las posibles busquedas
 		
@@ -51,18 +98,18 @@ public class ProductoController {
 			precio=precio+1;
 			if (tipo.equals("All")) {
 				if(nombre=="") {
-					lista=productoRepositorio.findAll();
+					lista=productoRepositorio.findAll(new PageRequest(numPag, numElem));
 				
 				}else {
-					lista=productoRepositorio.findByName(nombre);
+					lista=productoRepositorio.findByName(nombre,new PageRequest(numPag, numElem));
 					
 				}
 			}else {
 				if(nombre=="") {
-					lista=productoRepositorio.findByCategory(tipo);
+					lista=productoRepositorio.findByCategory(tipo,new PageRequest(numPag, numElem));
 				
 				}else {
-					lista=productoRepositorio.findByNameAndCategory(nombre,tipo);
+					lista=productoRepositorio.findByNameAndCategory(nombre,tipo,new PageRequest(numPag, numElem));
 				
 				}
 			}
@@ -70,20 +117,21 @@ public class ProductoController {
 			
 			if (tipo=="All") {
 				if(nombre=="") {
-					lista=productoRepositorio.findByPriceBetween(0,precio);
+					lista=productoRepositorio.findByPriceBetween(0,precio,new PageRequest(numPag, numElem));
 				}else {
-					lista=productoRepositorio.findByNameAndPriceBetween(nombre,0,precio);
+					lista=productoRepositorio.findByNameAndPriceBetween(nombre,0,precio,new PageRequest(numPag, numElem));
 				}
 			}else {
 				if(nombre=="") {
-					lista=productoRepositorio.findByCategoryAndPriceBetween(tipo,0,precio);
+					lista=productoRepositorio.findByCategoryAndPriceBetween(tipo,0,precio,new PageRequest(numPag, numElem));
 				}else {
-					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precio);
+					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precio,new PageRequest(numPag, numElem));
 				}
 			}
 		}
 		
 		model.addAttribute("productos",lista);
+		model.addAttribute("numPag", sigPag);
 		return "catalogo_template";
 	}
 	
@@ -99,7 +147,7 @@ public class ProductoController {
 	
 	@GetMapping ("/registrar_producto")
 	public String  RegistrarProducto(Model model, @RequestParam String nombre,@RequestParam int precio,@RequestParam String tipo,@RequestParam String descripcion,@RequestParam int stock) {
-		List<Producto> producto=productoRepositorio.findByName(nombre);
+		Page<Producto> producto=productoRepositorio.findByName(nombre,new PageRequest(1, numElem));
 		if (producto.isEmpty()){
 		Producto producto_nuevo = new Producto(nombre, precio,descripcion,tipo,stock); 
 		productoRepositorio.save(producto_nuevo);

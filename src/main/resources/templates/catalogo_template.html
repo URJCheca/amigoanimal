@@ -5,13 +5,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action="ver_carrito">
+			<input type="hidden" name= carrito value={{carrito}} readonly/>
+			<input type="submit" value="Mi Carrtito"> 
+		</form>
 	{{#productos}}
 		{{name}}
 		{{price}}
 		{{description}}
 		{{stock}}
 		<form action="aniadir_carrito">
-			<input type="hidden" name= {{name}} readonly/>
+			<input type="hidden" name= id value={{id}} readonly/>
+			<input type="hidden" name= carrito value={{carrito}} readonly/>
+			<input type="number" name= "quantity" value="1"/>
 			<input type="submit" value="Añadir al carrito"> 
 		</form>
 		<form action="modificar_producto">
@@ -23,13 +29,19 @@
 		<input type= 'submit' value='Borrar'/>
 	</form>
 	{{/productos}}
+	<form action="catalogo">
+	<input type="hidden" name=numPag value={{numPag}} readonly/>
+			<input type="submit" value="Siguiente"> 
+	</form>
 	<form action="busqueda_producto">
 		<input type= 'submit' value='Busqueda Avanzada'/>
 	</form>
 	<form action="alta_producto">
 		<input type= 'submit' value='Registrar un Producto'/>
 	</form>
-	
+	<form action="greeting">
+		<input type= 'submit' value='Volver a pagina principal'/>
+	</form>
 	<!--  {{#trabajador}}-->
 	
 	<!-- {{/trabajador}}-->
