@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="busqueda_avanzada_producto">
-		<p>Nombre :</p><input type='text' name='nombre' />
-		
-		<label for= 'all'> Todo</label>
-		<input type="radio" id="all" name='tipo' value="All" checked/>
-		<label for='food'>Alimentacion</label>
-		<input type="radio" id="food" name='tipo' value='Alimentacion'/>
-		<label for='higiene'>Higiene</label>
-		<input type="radio" id="higiene" name='tipo' value='Higiene'>
-		<label for='accesorios'>Accesorios</label>
-		<input type="radio" id="accesorios" name='tipo' value='Accesorios'>
-		<label for='salud'>Salud</label>
-		<input type="radio" id="salud" name='tipo' value='Salud'>
-		<label for='toys'>Juguetes</label>
-		<input type="radio" id= "toys" name='tipo' value='Juguetes'>
-		<label for='viaje'>Viaje</label>
-		<input type="radio" id="viaje" name='tipo' value='Viaje'>		
-		
-		<p>Precio:</p><input type="number" name="precio" value="0"/>
-		<input type="number" name="numPag" value="1"/>
-		<input type='submit' value='Enviar' />
-</form>
+<div class="baseImage">
+	<div class="registroText">
+		<form action="busqueda_avanzada_producto">
+				<p>Nombre :</p><input type='text' name='nombre' />
+				<br>
+				<label for= 'all'> Todo</label>
+				<input type="radio" id="all" name='tipo' value="All" checked/>
+				<label for='food'>Alimentacion</label>
+				<input type="radio" id="food" name='tipo' value='Alimentacion'/>
+				<label for='higiene'>Higiene</label>
+				<input type="radio" id="higiene" name='tipo' value='Higiene'>
+				<label for='accesorios'>Accesorios</label>
+				<input type="radio" id="accesorios" name='tipo' value='Accesorios'>
+				<label for='salud'>Salud</label>
+				<input type="radio" id="salud" name='tipo' value='Salud'>
+				<label for='toys'>Juguetes</label>
+				<input type="radio" id= "toys" name='tipo' value='Juguetes'>
+				<label for='viaje'>Viaje</label>
+				<input type="radio" id="viaje" name='tipo' value='Viaje'>		
+				
+				<p>Precio:</p><input type="number" name="precio" value="0"/>
+				<input type="number" name="numPag" value="1"/>
+				<input type='submit' class="baseButton" value='Enviar' />
+		</form>
+	</div>
+</div>
 </body>
 </html>

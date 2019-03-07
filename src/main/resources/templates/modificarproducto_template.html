@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 <form action="cambiar_producto">
-	
+<div class="baseImage">
+	<div class="registroText">
 		<input type="hidden" name=id value= {{id}} readonly/>
-		<p>Nombre :<input type='text' name='name' value={{nombre}} /></p>
-		<p>Precio :<input type='number' name='price' value={{precio}} /></p>
-		<p>Tipo :<input type='text' name='category' value={{tipo}}/></p>
+		<p>Nombre :<input type='text' name='name' class="baseButton" value={{nombre}} /></p>
+		<p>Precio :<input type='number' name='price' class="baseButton" value={{precio}} /></p>
+		<p>Tipo :<input type='text' name='category' class="baseButton" value={{tipo}}/></p>
 		<p>Descripcion :</p>
 		<textarea rows='4' cols='50' name='description' >{{descripcion}}</textarea>
-		<p>Stock:</p> <input type='number' name='stock' value={{stock}}>
-	    <input type='submit' value='Modificar' />
+		<p>Stock:</p> <input type='number' name='stock' class="baseButton" value={{stock}}>
+	    <input type='submit' class="baseButton"	value='Modificar' />
 	
 	    {{#error}}
 	    <p> El producto que intenta registrar ya existe. Por favor revise los datos</p>
 	    {{/error}}
+	</div>
+</div> 
 </form>
 </body>
 </html>
