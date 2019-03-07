@@ -80,7 +80,7 @@ public class ProductoController {
 		List<Producto> lista = productoRepositorio.findAll();
 		model.addAttribute("productos",lista);
 		model.addAttribute("carrito",carrito);
-		model.addAttribute("numPag", 1);
+		model.addAttribute("numPag", 0);
 		
 		return "catalogo_template";
 	}
@@ -90,6 +90,7 @@ public class ProductoController {
 	@GetMapping ("/busqueda_avanzada_producto")
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
 		Page<Producto> lista;
+		Carrito carrito= new Carrito();
 		int sigPag= numPag+1;
 		
 		//realizar para cada una de las posibles busquedas
@@ -132,6 +133,7 @@ public class ProductoController {
 		
 		model.addAttribute("productos",lista);
 		model.addAttribute("numPag", sigPag);
+		model.addAttribute("carrito",carrito);
 		return "catalogo_template";
 	}
 	

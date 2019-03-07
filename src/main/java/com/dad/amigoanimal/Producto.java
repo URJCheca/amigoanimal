@@ -18,8 +18,12 @@ public class Producto {
 	private String category;
 	private int stock;
 	
-	protected Producto() {}
+
 	
+	public Producto() {
+		
+	}
+
 	public Producto(String name, int price,String description, String category, int stock) {
 		this.name = name;
 		this.price = price;

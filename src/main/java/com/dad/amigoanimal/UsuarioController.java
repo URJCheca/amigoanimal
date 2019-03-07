@@ -2,6 +2,8 @@ package com.dad.amigoanimal;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,14 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepositorio;
+	
+	@PostConstruct
+	public void init() {
+		usuarioRepositorio.save(new Usuario("alex","alex123","46789143l","alex@hotmail.com",1));
+		usuarioRepositorio.save(new Usuario("manu","manu123","55098788p","manu@gmail.com",1));
+		usuarioRepositorio.save(new Usuario("pepe","pepe123","22750912s","pepe@gmail.com",1));
+			
+	}
 	
 	@RequestMapping("/signup")
 	public String registerController (Model model) {
