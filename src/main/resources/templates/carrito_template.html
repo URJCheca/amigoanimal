@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="baseImage">
+	<div class="baseText">
+		{{#entrySet}}
+			<li>{{key}}</li>
+			<li>{{value}}</li>
+		{{/entrySet}}
+		<p>Precio Total: </p>{{precio}}
+	</div>
+</div>
+</body>
+</html>
