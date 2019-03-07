@@ -11,6 +11,45 @@ Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas f
 * Clinica Veterinaria:La idea es que se puedan poner en contacto con ellos a fin de concretar una cita. Lo ideal seria la posibilidad que el usuario tuviera acceso a un calendario y poder sleccionar el mismo el dia y hora deseado entre un total de horas disponibles
 * Mascotas: Las mascotas seran atendidas en las clinica veterinaria. Normalmente los clientes dejan que sus mascotas reciban el tratamiento y pasen a recogerlas otro dia. Por ello la mascota tendra un dueño asociado, asi como rasgos identificacivos (Especie, raza, nombre, color...)
 
+
+## Capturas
+### Inicio
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Inicio.JPG"
+     alt="Página de inicio"
+     style="float: left; margin-right: 10px;" />
+### Login
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Login.JPG"
+     alt="Login de usuario"
+     style="float: left; margin-right: 10px;" />
+### Registro
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Registro.JPG"
+     alt="Registro de usuarios"
+     style="float: left; margin-right: 10px;" />
+### Tienda
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Tienda.JPG"
+     alt="Tienda"
+     style="float: left; margin-right: 10px;" />
+### Alta de productos
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Registrar_producto.JPG"
+     alt="Registro de productos"
+     style="float: left; margin-right: 10px;" />
+### Busqueda de productos
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Busqueda_avanzada.JPG"
+     alt="Busqueda avanzada de productos"
+     style="float: left; margin-right: 10px;" />
+### Clinica
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Clinica.JPG"
+     alt="Clinica veterinaria"
+     style="float: left; margin-right: 10px;" />
+###Alta de mascotas
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Alta%20Mascota.JPG"
+     alt="Alta de mascotas"
+     style="float: left; margin-right: 10px;" />
+### Baja de mascotas
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Baja%20Mascota.JPG"
+     alt="Baja de mascotas"
+     style="float: left; margin-right: 10px;" />
+     
 ## Servicio Interno
  O servicio de mensajeria con una "Factura" de lo comprado o ¿Calendario de la clinica? En el calendario se indicaria un rango de fecha y hora deseable y se asignara lo mas pronto posible.
 ## Integrantes
