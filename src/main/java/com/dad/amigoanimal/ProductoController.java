@@ -40,9 +40,19 @@ public class ProductoController {
 		
 		
 	}
-	@RequestMapping ("/catalogo")
-	public String catalogoController (Model model, @RequestParam int numPag) {
+	@RequestMapping("/crear_carrito")
+	public String crearCarrito (Model model) {
 		Carrito carrito= new Carrito();
+		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
+		model.addAttribute("productos",lista);
+		model.addAttribute("carrito",carrito);
+		model.addAttribute("numPag", 0);
+		
+		return "catalogo_template";
+	}
+	@RequestMapping ("/catalogo")
+	public String catalogoController (Model model, @RequestParam int numPag, @RequestParam Carrito carrito) {
+		
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(numPag, numElem));
 		
 		model.addAttribute("productos",lista);
@@ -77,7 +87,7 @@ public class ProductoController {
 		Producto producto= optional.get();
 		carrito.addProducto(producto, quantity);
 		System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
-		List<Producto> lista = productoRepositorio.findAll();
+		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
 		model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);

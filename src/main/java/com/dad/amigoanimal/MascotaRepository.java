@@ -11,8 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface MascotaRepository extends JpaRepository <Mascota, Long>{
 	Optional<Mascota> findById(Long id);
 	List<Mascota> findByName(String name);
-	List<Mascota> findByOwner (Usuario owner);
+	List<Mascota> findByUsuario (Usuario usuario);
 	List<Mascota> findByEspecie (String especie);
+	List<Mascota> findByNameAndUsuario (String name, Usuario usuario);
 	
 		
 }

@@ -16,12 +16,17 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepositorio;
+	@Autowired
+	private ClinicaRepository clinicaRepositorio;
 	
 	@PostConstruct
 	public void init() {
 		usuarioRepositorio.save(new Usuario("alex","alex123","46789143l","alex@hotmail.com",1));
 		usuarioRepositorio.save(new Usuario("manu","manu123","55098788p","manu@gmail.com",1));
 		usuarioRepositorio.save(new Usuario("pepe","pepe123","22750912s","pepe@gmail.com",1));
+		Usuario user = new Usuario("123","123123","123123123","123@gmail.com",1);		
+		user.setClinica(clinicaRepositorio.findByName("Las Aguilas").get(0));
+		usuarioRepositorio.save(user);
 			
 	}
 	

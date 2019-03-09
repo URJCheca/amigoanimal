@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -14,9 +15,11 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@OneToMany
+	
+	@OneToMany(mappedBy="usuario")
 	private List <Mascota>  mascotas;
-	//Si es cliente/Herencia?
+	@ManyToOne
+	private Clinica  clinica;
 	private String name;
 	private String email;
 	private String document;
@@ -69,6 +72,14 @@ public class Usuario {
 
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
+	}
+
+	public Clinica getClinica() {
+		return clinica;
+	}
+
+	public void setClinica(Clinica clinica) {
+		this.clinica = clinica;
 	}
 
 

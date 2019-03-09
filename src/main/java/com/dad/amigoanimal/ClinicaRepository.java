@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClinicaRepository extends JpaRepository <Clinica, Long>{
 
 	List<Clinica> findAll();
+	List<Clinica> findByName(String name);
 	
 	
 /*	public default void saveCliente (Usuario cliente) {
@@ -25,9 +26,10 @@ public interface ClinicaRepository extends JpaRepository <Clinica, Long>{
 		this.save(clinica);
 	}
 	*/
+	/*
 	public default void saveMascota (Mascota mascota) {
 		
-		Clinica clinica = this.findAll().get(1);
+		Clinica clinica = this.findAll().get(0);
 		clinica.setMascota(mascota);
 		this.deleteAll();
 		this.save(clinica);
@@ -39,6 +41,6 @@ public interface ClinicaRepository extends JpaRepository <Clinica, Long>{
 		clinica.getMascotas().remove(mascota);
 		this.deleteAll();
 		this.save(clinica);
-	}
+	}*/
 	
 }
