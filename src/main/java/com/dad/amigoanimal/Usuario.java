@@ -1,5 +1,6 @@
 package com.dad.amigoanimal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,17 +21,21 @@ public class Usuario {
 	private List <Mascota>  mascotas;
 	@ManyToOne
 	private Clinica  clinica;
+	private String login;
 	private String name;
 	private String email;
 	private String document;
 	private String contrasena;
+	//private List<String[]> tarjetas;
+	private int puntos=0;
 	private int rol;
 
 	
 	public Usuario() {
 	}
 	
-	public Usuario(String name, String contrasena, String document, String email, int rol) {
+	public Usuario(String login,String name, String contrasena, String document, String email, int rol) {
+		this.login=login;
 		this.name = name;
 		this.contrasena = contrasena;
 		this.document = document;
@@ -38,6 +43,13 @@ public class Usuario {
 		this.rol = rol;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 	public String getName() {
 		return name;
 	}
@@ -81,6 +93,23 @@ public class Usuario {
 	public void setClinica(Clinica clinica) {
 		this.clinica = clinica;
 	}
+	
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+	
+	public void addPuntos(int puntos) {
+		this.puntos+=puntos;
+	}
+	
+	public void restPuntos(int puntos) {
+		this.puntos-=puntos;
+	}
+	
 
 
 }
