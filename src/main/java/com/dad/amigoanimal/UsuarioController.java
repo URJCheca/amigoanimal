@@ -15,18 +15,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioRepository usuarioRepositorio;
+	private ClienteRepository clienteRepositorio;
 	@Autowired
 	private ClinicaRepository clinicaRepositorio;
+	@Autowired
+	private MascotaRepository mascotaRepositorio;
+	@Autowired
+	private UserBaseRepository usuarioRepositorio;
 	
 	@PostConstruct
 	public void init() {
-		usuarioRepositorio.save(new Usuario("alex","alex","alex123","46789143l","alex@hotmail.com",1));
-		usuarioRepositorio.save(new Usuario("manu","manu","manu123","55098788p","manu@gmail.com",1));
-		usuarioRepositorio.save(new Usuario("pepe","pepe","pepe123","22750912s","pepe@gmail.com",1));
-		Usuario user = new Usuario("123","123","123123","123123123","123@gmail.com",3);		
+		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com",1);
+		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com",1);
+		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com",1);
+		
+		
+		Mascota mascota1=new Mascota("Congo","Loro","Yaco","Gris");
+		Mascota mascota2=new Mascota("Fluffy","perro","labrador","canela");
+		Mascota mascota3=new Mascota("Miaustache","gato","persa","gris");
+		Mascota mascota4=new Mascota("Calcetines","gato","europeo","negro");
+		
+		
+		clienteRepositorio.save(cliente1);
+		clienteRepositorio.save(cliente2);
+		clienteRepositorio.save(cliente3);
+		
+		mascota1.setUsuario(cliente1);
+		mascota2.setUsuario(cliente2);
+		mascota3.setUsuario(cliente2);
+		mascota4.setUsuario(cliente3);
+		/*cliente1.addMascota(mascota1);;
+		cliente2.addMascota(mascota2);
+		cliente3.addMascota(mascota3);
+		cliente3.addMascota(mascota4);*/
+				
+		
+		mascotaRepositorio.save(mascota1);
+		mascotaRepositorio.save(mascota2);
+		mascotaRepositorio.save(mascota3);
+		mascotaRepositorio.save(mascota4);
+		/*Usuario user = new Usuario("123","123","123123","123123123","123@gmail.com",3);		
+		
 		user.setClinica(clinicaRepositorio.findByName("Las Aguilas").get(0));
-		usuarioRepositorio.save(user);
+		usuarioRepositorio.save(user);*/
 			
 	}
 	
@@ -38,8 +69,8 @@ public class UsuarioController {
 	@GetMapping("/user_login")
 	public String  LogearUsuario(Model model, @RequestParam String nombre, @RequestParam String contrasena) {
 		
-		List<Usuario> user;
-		user = usuarioRepositorio.findByName(nombre);
+		List<Cliente> user;
+		user = clienteRepositorio.findByName(nombre);
 		
 		if (user.size()>0) {
 			if (user.get(0).getContrasena().equals(contrasena)) {
@@ -49,7 +80,7 @@ public class UsuarioController {
 				System.out.println("Contraseña equivocada");
 			}*/
 		}
-		System.out.println("Usuario o contraseña no compatibles ");
+		model.addAttribute("fail", true);
 		return "signin_template";
 	}
 	
@@ -60,7 +91,7 @@ public class UsuarioController {
 	
 	@GetMapping("/registrar_user")
 	public String  RegistrarUsuario(Model model, @RequestParam String login, @RequestParam String contrasena, @RequestParam String contrasena2, @RequestParam String email) {
-		Boolean coincideLogin=usuarioRepositorio.findByLogin(login).isPresent();
+		Boolean coincideLogin=clienteRepositorio.findByLogin(login).isPresent();
 		System.out.println("llego aqui");
 		if(!coincideLogin) {
 			System.out.println("llego aqui???");
@@ -80,8 +111,8 @@ public class UsuarioController {
 	@GetMapping("/continuacion_registro")
 	public String  ContinuacionRegistro(Model model, @RequestParam String login,@RequestParam String nombre, @RequestParam String contrasena, @RequestParam String email,@RequestParam String documento) {
 		
-			Usuario usuario_nuevo = new Usuario(login,nombre, contrasena, documento, email, 1); 
-			usuarioRepositorio.save(usuario_nuevo);
+			Cliente usuario_nuevo = new Cliente(login,nombre, contrasena, documento, email, 1); 
+			clienteRepositorio.save(usuario_nuevo);
 			System.out.println("Registrado con exito: " + nombre);
 			return "greeting_template";
 		

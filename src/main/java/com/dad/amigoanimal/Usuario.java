@@ -7,28 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
+@Inheritance
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToMany(mappedBy="usuario")
-	private List <Mascota>  mascotas;
+	/*@OneToMany(mappedBy="usuario")
+	private List <Mascota>  mascotas;*/
 	@ManyToOne
 	private Clinica  clinica;
-	private String login;
-	private String name;
-	private String email;
-	private String document;
-	private String contrasena;
+	protected String login;
+	protected String name;
+	protected String email;
+	protected String document;
+	protected String contrasena;
 	//private List<String[]> tarjetas;
-	private int puntos=0;
-	private int rol;
+	//private int puntos=0;
+	protected int rol;
 
 	
 	public Usuario() {
@@ -93,7 +95,7 @@ public class Usuario {
 	public void setClinica(Clinica clinica) {
 		this.clinica = clinica;
 	}
-	
+	/*
 	public int getPuntos() {
 		return puntos;
 	}
@@ -108,7 +110,7 @@ public class Usuario {
 	
 	public void restPuntos(int puntos) {
 		this.puntos-=puntos;
-	}
+	}*/
 	
 
 

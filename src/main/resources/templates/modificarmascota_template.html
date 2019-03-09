@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="cambiar_mascota">
+<div class="baseImage">
+	<div class="registroText">
+		<input type="hidden" name=id value= {{id}} readonly/>
+		<p>Dueño: </p><input type="text" name=owner value= {{owner}} readonly/>
+		<p>Nombre: <input type='text' name='name' class="baseButton" value={{name}} /></p>
+		<p>Especie: <input type='text' name='especie' class="baseButton" value={{especie}} /></p>
+		<p>Raza: <input type='text' name='raza' class="baseButton" value={{raza}}/></p>
+		<p>Color: </p> <input type='text' name='color' class="baseButton" value={{color}}>
+	    <input type='submit' class="baseButton"	value='Modificar' />
+	
+	    
+	</div>
+</div> 
+</form>
+</body>
+</html>

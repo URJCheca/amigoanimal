@@ -13,7 +13,7 @@ public class Mascota {
 	private Long id;
 	
 	@ManyToOne
-	private Usuario usuario;
+	private Cliente usuario;
 	@ManyToOne
 	private Clinica clinica;
 	private String name;
@@ -23,7 +23,7 @@ public class Mascota {
 
 	
 	public Mascota() {}
-	public Mascota(/*Usuario owner,*/ String name, String especie, String raza, String color/*Clinica clinica, String id*/) {
+	public Mascota(/*Usuario owner,*/ String name, String especie, String raza, String color/*Clinica clinica*/) {
 		/*this.owner = owner;*/
 		this.name = name;
 		this.especie = especie;
@@ -33,11 +33,11 @@ public class Mascota {
 		
 	}
 	
-	public Usuario getUsuario() {
+	public Cliente getUsuario() {
 		return usuario;
 	}
 	
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Cliente usuario) {
 		this.usuario = usuario;
 	}
 	

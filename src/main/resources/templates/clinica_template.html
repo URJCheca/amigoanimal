@@ -10,9 +10,17 @@
 	<img class="imgLogo" src="/images/logo.png">
 	<div class="baseText">
 		<p>Bienvenido a la clinica</p>
-		<form action="registrar_mascota"><input type="submit" class="baseButton" value='Alta' /></form>
+		<form action="registro_mascotas">
+		
+		<input type="submit" class="baseButton" value='Mascotas Registradas' />
+		<input type="hidden" name=numPag value="0"readonly/>
+		</form>
 		<br>
-		<form action="retirar_mascota"><input type="submit" class="baseButton" value='Baja' /></form>
+		<form action="registrar_mascota">
+		<input type="submit" class="baseButton" value='Dar de alta una mascota' />
+		</form>
+		
+		
 	</div>
 </div>		
 </body>

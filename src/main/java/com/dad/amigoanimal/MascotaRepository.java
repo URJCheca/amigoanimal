@@ -1,19 +1,15 @@
 package com.dad.amigoanimal;
 
-import java.util.List;
-import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 
 
 public interface MascotaRepository extends JpaRepository <Mascota, Long>{
-	Optional<Mascota> findById(Long id);
-	List<Mascota> findByName(String name);
-	List<Mascota> findByUsuario (Usuario usuario);
-	List<Mascota> findByEspecie (String especie);
-	List<Mascota> findByNameAndUsuario (String name, Usuario usuario);
-	
+
+	Page<Mascota> findByName(String name, Pageable page);
+	Page<Mascota> findByUsuario (Usuario usuario, Pageable page);
+	Page<Mascota> findByEspecie (String especie, Pageable page);
+	Page<Mascota> findByNameAndUsuario (String name, Usuario usuario, Pageable page);
 		
 }

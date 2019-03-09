@@ -16,11 +16,16 @@ public class Clinica {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private int salas;
+	
 	@OneToMany(mappedBy="clinica")
-	private List <Usuario>  clientes;
+	private List <Cliente>  clientes;
+	/*@OneToMany(mappedBy="clinica")
+	private List <Trabajador>  trabajadores;*/
 	@OneToMany(mappedBy="clinica")
 	private List<Mascota> mascotas;
-	private int salas;
+		
+	
 	public Clinica() {}
 	public Clinica(String nombre,int salas) {
 		this.setName(nombre);
@@ -28,10 +33,10 @@ public class Clinica {
 		this.mascotas = new ArrayList<>();
 		this.salas = salas;
 	}
-	public List<Usuario> getClientes() {
+	public List<Cliente> getClientes() {
 		return clientes;
 	}
-	public void setClientes(Usuario cliente) {
+	public void setClientes(Cliente cliente) {
 		this.clientes.add(cliente);
 	}
 	public List<Mascota> getMascotas() {

@@ -8,14 +8,29 @@
 <body>
 <div class="baseImage">
 	<div class="baseText">
-		<p>¡El producto se ha registrado con exito!</p>
+		<p>¡Se ha registrado con exito!</p>
+		
+		{{#catalogo}}
 		<form action="catalogo">
-		<input type="hidden" name="numPag" value="1" readonly/>
+		<input type="hidden" name="numPag" value="0" readonly/>
 			<input type= 'submit' class="baseButton" value='Volver al catalogo'/>
 		</form>
 		<form action="alta_producto">
 			<input type= 'submit' class="baseButton" value='Registrar otro producto'/>
 		</form>
+		{{/catalogo}}
+		{{#usuario}}
+		<form action="catalogo">
+			<input type="hidden" name="numPag" value="0" readonly/>
+				<input type= 'submit' class="baseButton" value='Volver al catalogo'/>
+			</form>
+		{{/usuario}}
+		{{#mascota}}
+		<form action="registro_mascotas">
+			<input type="hidden" name="numPag" value="0" readonly/>
+				<input type= 'submit' class="baseButton" value='Volver al registro'/>
+			</form>
+		{{/mascota}}
 	</div>
 </div>
 </body>
