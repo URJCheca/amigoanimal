@@ -22,7 +22,7 @@ public class Usuario {
 	/*@OneToMany(mappedBy="usuario")
 	private List <Mascota>  mascotas;*/
 	@ManyToOne
-	private Clinica  clinica;
+	protected Clinica  clinica;
 	protected String login;
 	protected String name;
 	protected String email;

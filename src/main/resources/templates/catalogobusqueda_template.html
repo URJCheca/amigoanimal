@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="baseImage">
+	<div class="registroText">
+		<form action="ver_carrito">
+					<input type="hidden" name= carrito value={{carrito}} readonly/>
+					<input type="submit" class="baseButton" value="Mi Carrtito"> 
+				</form>
+			{{#productos}}
+			<ul class="tablaBase">
+				<li>
+				<ul class="tablaBase">
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">Nombre</li>
+						<li class="elementosCorto">Precio</li>
+						<li class="elementosLargo">Descripcion</li>
+						<li class="elementosCorto">Stock</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">{{name}}</li>
+						<li class="elementosCorto">{{price}}</li>
+						<li class="elementosLargo">{{description}}</li>
+						<li class="elementosCorto">{{stock}}</li>
+						</ul>
+					</li>
+					<br>
+				</ul>
+					<form action="aniadir_carrito">
+						<input type="hidden" name= id value={{id}} readonly/>
+						<input type="hidden" name= carrito value={{carrito}} readonly/>
+						<input type="number" name= "quantity" value="1"/>
+						<input type="submit" class="catalogoButton" value="Aniadir al carrito"> 
+					</form>
+					<form action="modificar_producto">
+						<input type="hidden" name= id value={{id}} readonly/>
+						<input type="submit" cl1111111ass="catalogoButton" value="Modificar"> 
+					</form>
+					<form action="borrar_producto">
+						<input type="hidden" name= id value={{id}} readonly/>
+					<input type= 'submit' class="catalogoButton" value='Borrar'/>
+					</form>
+					</li>
+				</ul>
+			{{/productos}}
+			<br>
+			<form action="busqueda_avanzada_producto">
+				<input type='hidden' name='nombre' value={{nombre}} >
+				<input type='hidden' name='tipo' value={{tipo}} >		
+				<input type="hidden" name="precio" value={{precio}} >
+				<input type="hidden" name=numPag value={{numPag}} >
+				<input type="submit" class="baseButton" value="Siguiente"> 
+			</form>
+			<form action="busqueda_producto">
+				<input type= 'submit' class="baseButton" value='Busqueda Avanzada'/>
+			</form>
+			<form action="greeting">
+				<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
+			</form>
+			<!--  {{#trabajador}}-->
+			
+			<!-- {{/trabajador}}-->
+	</div>
+</div>
+</body>
+</html>

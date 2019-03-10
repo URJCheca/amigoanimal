@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="baseImage">
+	<div class="registroText">
+			{{#mascotas}}
+			<ul class="tablaBase">
+				<li>
+				<ul class="tablaBase">
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">Nombre</li>
+						<li class="elementosCorto">Especie</li>
+						<li class="elementosLargo">Raza</li>
+						<li class="elementosCorto">Color</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">{{name}}</li>
+						<li class="elementosCorto">{{especie}}</li>
+						<li class="elementosLargo">{{raza}}</li>
+						<li class="elementosCorto">{{color}}</li>
+						</ul>
+					</li>
+					<br>
+				</ul>
+					
+					<form action="modificar_mascota">
+						<input type="hidden" name= id value={{id}} readonly/>
+						<input type="submit" cl1111111ass="catalogoButton" value="Ficha"> 
+					</form>
+					<form action="baja_mascota">
+						<input type="hidden" name= id value={{id}} readonly/>
+					<input type= 'submit' class="catalogoButton" value='Borrar'/>
+					</form>
+					</li>
+				</ul>
+			{{/mascotas}}
+			<br>
+			<form action="busqueda_avanzada_mascota">
+				<input type='hidden' name='nombre' value={{nombre}} >
+				<input type='hidden' name='document' value={{document}} >
+				<input type='hidden' name='clinica' value={{clinica}} >
+				<input type='hidden' name='especie' value={{especie}} >
+				<input type="hidden" name=numPag value={{numPag}} >
+				<input type="submit" class="baseButton" value="Siguiente"> 
+			</form>
+			
+			<form action="busqueda_mascota">
+				<input type= 'submit' class="baseButton" value='Busqueda Avanzada'/>
+			</form>
+			
+			<form action="greeting">
+				<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
+			</form>
+			<!--  {{#trabajador}}
+			
+			<{{/trabajador}}-->
+</body>
+</html>

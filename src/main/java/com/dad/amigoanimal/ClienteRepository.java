@@ -14,7 +14,7 @@ public interface ClienteRepository extends UserBaseRepository {
 	Optional<Cliente> findByLogin(String login);
 	List<Cliente> findByName(String name);
 	List<Cliente> findByContrasena(String contrasena);
-	List<Cliente> findByDocument (String document);
+	Cliente findByDocument (String document);
 	List<Cliente> findByClinica (Clinica clinica);
 	List<Cliente> findByEmail (String email);
 }

@@ -102,13 +102,13 @@ public class ProductoController {
 		Page<Producto> lista;
 		Carrito carrito= new Carrito();
 		int sigPag= numPag+1;
-		
+		System.out.println("_"+nombre+"_");
 		//realizar para cada una de las posibles busquedas
 		
 		if (precio==0) {
-			precio=precio+1;
+			
 			if (tipo.equals("All")) {
-				if(nombre=="") {
+				if(nombre.equals("")) {
 					lista=productoRepositorio.findAll(new PageRequest(numPag, numElem));
 				
 				}else {
@@ -116,7 +116,7 @@ public class ProductoController {
 					
 				}
 			}else {
-				if(nombre=="") {
+				if(nombre.equals("")) {
 					lista=productoRepositorio.findByCategory(tipo,new PageRequest(numPag, numElem));
 				
 				}else {
@@ -125,26 +125,31 @@ public class ProductoController {
 				}
 			}
 		}else {
-			
-			if (tipo=="All") {
-				if(nombre=="") {
-					lista=productoRepositorio.findByPriceBetween(0,precio,new PageRequest(numPag, numElem));
+			System.out.println("precio no 0");
+			int precioaux=precio+1;
+			if (tipo.equals("All")) {
+				if(nombre.equals("")) {
+					System.out.println("buscando");
+					lista=productoRepositorio.findByPriceBetween(0,precioaux,new PageRequest(numPag, numElem));
 				}else {
-					lista=productoRepositorio.findByNameAndPriceBetween(nombre,0,precio,new PageRequest(numPag, numElem));
+					lista=productoRepositorio.findByNameAndPriceBetween(nombre,0,precioaux,new PageRequest(numPag, numElem));
 				}
 			}else {
-				if(nombre=="") {
-					lista=productoRepositorio.findByCategoryAndPriceBetween(tipo,0,precio,new PageRequest(numPag, numElem));
+				if(nombre.equals("")) {
+					lista=productoRepositorio.findByCategoryAndPriceBetween(tipo,0,precioaux,new PageRequest(numPag, numElem));
 				}else {
-					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precio,new PageRequest(numPag, numElem));
+					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precioaux,new PageRequest(numPag, numElem));
 				}
 			}
 		}
 		
+		model.addAttribute("nombre",nombre);
+		model.addAttribute("tipo", tipo);
+		model.addAttribute("precio",precio);
 		model.addAttribute("productos",lista);
 		model.addAttribute("numPag", sigPag);
 		model.addAttribute("carrito",carrito);
-		return "catalogo_template";
+		return "catalogobusqueda_template";
 	}
 	
 	@GetMapping ("/busqueda_producto")

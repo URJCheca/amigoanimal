@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClinicaRepository extends JpaRepository <Clinica, Long>{
 
 	List<Clinica> findAll();
-	List<Clinica> findByName(String name);
+	Clinica findByName(String name);
 	
 	
 /*	public default void saveCliente (Usuario cliente) {

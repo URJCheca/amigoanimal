@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ClinicaController {
 
-	//@Autowired
-	//private MascotaRepository mascotaRepositorio;
+	
 	@Autowired
 	private ClienteRepository usuarioRepositorio;
 	@Autowired
@@ -29,21 +28,11 @@ public class ClinicaController {
 	
 	int numElem= 2;
 	
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 		clinicaRepositorio.save(new Clinica("Las Aguilas",3));
-	/*	
-		mascotaRepositorio.save(new Mascota("Flufy"));
-		mascotaRepositorio.save(new Mascota("Transportin grande", 20, "Transportin de grandes dimensiones para perros", "Viaje", 5));
-		mascotaRepositorio.save(new Mascota("Bun bunny", 5, "Complemento alimenticio para conejos", "Alimentacion",20));
-		mascotaRepositorio.save(new Mascota("Arenero", 10, "Arenero para gatos", "Higiene", 15));
-		mascotaRepositorio.save(new Mascota("Anti-lombrices", 8, "Pastillas anti parasitarias para perros y gatos", "Salud", 50));
-		usuarioRepositorio.save(new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com",1));
-		usuarioRepositorio.save(new Cliente("manu","manu","manu123","55098788p","manu@gmail.com",1));
-		usuarioRepositorio.save(new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com",1));
-		
-		*/
-	}
+	
+	}*/
 	
 	@RequestMapping ("/clinica")
 	public String clinicaController (Model model) {
@@ -59,32 +48,145 @@ public class ClinicaController {
 		model.addAttribute("numPag", numPag+1);
 		return "mascotas_template";
 	}
+	
+	@GetMapping ("/busqueda_avanzada_mascota")
+	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String document,@RequestParam String clinica,@RequestParam String especie,@RequestParam int numPag) {
+		Page<Mascota> lista;
+		int sigPag= numPag+1;
+		Cliente usuario;
+		Clinica clinic;
+
+		clinic=clinicaRepositorio.findByName(clinica);
+	
+		//realizar para cada una de las posibles busquedas
+		
+		if (clinica=="") {
+			if (document=="") {
+				if(especie=="") {
+					if(nombre=="") {
+						lista=mascotaRepositorio.findAll(new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByName(nombre,new PageRequest(numPag, numElem));
+					}
+				}else{
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByEspecie(especie,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndEspecie(nombre,especie,new PageRequest(numPag, numElem));
+					}
+				}
+			}else{
+				usuario= usuarioRepositorio.findByDocument(document);
+				if (usuario==null) {
+					model.addAttribute("userror", true);
+					return "busquedamascota_template";
+				}
+				
+				if(especie=="") {
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByUsuario(usuario,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndUsuario(nombre,usuario,new PageRequest(numPag, numElem));
+					}
+				}else{
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByUsuarioAndEspecie(usuario,especie,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndUsuarioAndEspecie(nombre,usuario,especie,new PageRequest(numPag, numElem));
+					}
+				}
+			}
+			
+		}else {
+			clinic=clinicaRepositorio.findByName(clinica);
+			if (clinic==null) {
+				model.addAttribute("clerror", true);
+				return "busquedamascota_template";
+			}
+			if (document=="") {
+				if(especie=="") {
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByClinica(clinic,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndClinica(nombre,clinic,new PageRequest(numPag, numElem));
+					}
+				}else{
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByEspecieAndClinica(especie,clinic,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndEspecieAndClinica(nombre,especie,clinic,new PageRequest(numPag, numElem));
+					}
+				}
+			}else{
+				usuario= usuarioRepositorio.findByDocument(document);
+				if (usuario==null) {
+					model.addAttribute("userror", true);
+					return "busquedamascota_template";
+				}
+				
+				if(especie=="") {
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByUsuarioAndClinica(usuario,clinic,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndUsuarioAndClinica(nombre,usuario,clinic,new PageRequest(numPag, numElem));
+					}
+				}else{
+					if(nombre=="") {
+						lista=mascotaRepositorio.findByUsuarioAndEspecieAndClinica(usuario,especie,clinic,new PageRequest(numPag, numElem));
+					}else {
+						lista=mascotaRepositorio.findByNameAndUsuarioAndEspecieAndClinica(nombre,usuario,especie,clinic,new PageRequest(numPag, numElem));
+					}
+				}
+			}
+			
+		}
+				
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("document", document);
+		model.addAttribute("especie", especie);
+		model.addAttribute("clinica", clinica);
+		model.addAttribute("mascotas",lista);
+		model.addAttribute("numPag", sigPag);
+		
+		return "mascotasbusqueda_template";
+	}
+	
+	@GetMapping ("/busqueda_mascota")
+	public String BusquedaProducto (Model model) {
+		return "busquedamascota_template";
+	}
+	
+	
+	
+	
+	
+	
 	@GetMapping ("/registrar_mascota")
 	public String registrarMascota (Model model) {
-		//model.addAttribute("alta",true);
+		
 		return "clinicaAlta_template";
 	}
 	
 	
-	/*@GetMapping ("/retirar_mascota")
-	public String  retirarMascota(Model model) {
-		//model.addAttribute("alta",false);
-		return "clinicaBaja_template";
-	}*/
+
 
 	@GetMapping ("/mascota_alta")
 	public String altaMascota(Model model, @RequestParam String ownerDoc, @RequestParam String name, @RequestParam String especie, @RequestParam String raza, @RequestParam String color) {
-		//model.addAttribute("alta",false);
-		List<Cliente> user;
+	
+		Cliente user;
+
 		user = usuarioRepositorio.findByDocument(ownerDoc);
-		if (user.size()>0) {
+
+		if (user!=null) {
+			System.out.println ("entro al if");
 			Mascota mascotaNueva = new Mascota(name, especie, raza, color/*,clinicaRepositorio.findByName("Las Aguilas").get(0)*/);
-			mascotaNueva.setUsuario(user.get(0));
-			if (user.get(0).getClinica() != null) {
+			mascotaNueva.setUsuario(user);
+			//ver por que esto
+			if (user.getClinica() != null) {
 				System.out.println("Existe clinica del usuario");
-				mascotaNueva.setClinica(user.get(0).getClinica());
+				mascotaNueva.setClinica(user.getClinica());
 			} else {
-				mascotaNueva.setClinica(clinicaRepositorio.findByName("Las Aguilas").get(0)); 
+				mascotaNueva.setClinica(clinicaRepositorio.findByName("Las Aguilas")); 
 				}
 			mascotaRepositorio.save(mascotaNueva);
 			model.addAttribute("mascota", true);
@@ -97,7 +199,7 @@ public class ClinicaController {
 	
 	@GetMapping ("/baja_mascota")
 	public String bajaMascota(Model model, @RequestParam String id) {
-		//model.addAttribute("alta",false);
+
 		System.out.println(id);
 		long longID=Long.parseLong(id);
 		Optional<Mascota> optional=mascotaRepositorio.findById(longID);

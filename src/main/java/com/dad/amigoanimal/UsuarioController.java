@@ -20,9 +20,9 @@ public class UsuarioController {
 	private ClinicaRepository clinicaRepositorio;
 	@Autowired
 	private MascotaRepository mascotaRepositorio;
-	@Autowired
+	/*@Autowired
 	private UserBaseRepository usuarioRepositorio;
-	
+	*/
 	@PostConstruct
 	public void init() {
 		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com",1);
@@ -35,15 +35,21 @@ public class UsuarioController {
 		Mascota mascota3=new Mascota("Miaustache","gato","persa","gris");
 		Mascota mascota4=new Mascota("Calcetines","gato","europeo","negro");
 		
+		Clinica clinica1 = new Clinica("Las Aguilas",3);
+		
+		
 		
 		clienteRepositorio.save(cliente1);
 		clienteRepositorio.save(cliente2);
 		clienteRepositorio.save(cliente3);
 		
+		clinicaRepositorio.save(clinica1);
+		
 		mascota1.setUsuario(cliente1);
 		mascota2.setUsuario(cliente2);
 		mascota3.setUsuario(cliente2);
 		mascota4.setUsuario(cliente3);
+		mascota1.setClinica(clinica1);
 		/*cliente1.addMascota(mascota1);;
 		cliente2.addMascota(mascota2);
 		cliente3.addMascota(mascota3);
