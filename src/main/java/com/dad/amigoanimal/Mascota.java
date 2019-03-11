@@ -2,6 +2,7 @@ package com.dad.amigoanimal;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Mascota {
 	private String especie;
 	private String raza;
 	private String color;
+	private String registro;
 
 	
 	public Mascota() {}
@@ -29,6 +31,7 @@ public class Mascota {
 		this.especie = especie;
 		this.raza = raza;
 		this.color = color;
+		this.registro="";
 		/*this.clinica=clinica;*/
 		
 	}
@@ -79,4 +82,11 @@ public class Mascota {
 		this.clinica = clinica;
 	}
 	
+	public String getRegistro() {
+		return registro;
+	}
+	
+	public void setRegistro(String registro) {
+		this.registro = registro;
+	}
 }

@@ -204,10 +204,17 @@ public class ProductoController {
 	@GetMapping("/cambiar_producto")
 	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam int price,@RequestParam String category,@RequestParam String description,@RequestParam int stock) {
 		long longID=Long.parseLong(id);
-		Producto producto_nuevo = new Producto(name, price,description,category,stock); 
-		productoRepositorio.save(producto_nuevo);
-		productoRepositorio.delete(productoRepositorio.findById(longID).get());
-			return "cambioexitoso_template";
+		Optional<Producto> optional = productoRepositorio.findById(longID); 
+		Producto producto = optional.get();
+
+		producto.setName(name);
+		producto.setPrice(price);
+		producto.setCategory(category);
+		producto.setDescription(description);
+		producto.setStock(stock);
+		
+		productoRepositorio.save(producto);
+		return "cambioexitoso_template";
 	}
 			
 		

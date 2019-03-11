@@ -38,18 +38,28 @@ public class UsuarioController {
 		Clinica clinica1 = new Clinica("Las Aguilas",3);
 		
 		
+		cliente1.setClinica(clinica1);
+		cliente2.setClinica(clinica1);
+		cliente3.setClinica(clinica1);
+		
+		clinicaRepositorio.save(clinica1);
 		
 		clienteRepositorio.save(cliente1);
 		clienteRepositorio.save(cliente2);
 		clienteRepositorio.save(cliente3);
 		
-		clinicaRepositorio.save(clinica1);
+		
 		
 		mascota1.setUsuario(cliente1);
 		mascota2.setUsuario(cliente2);
 		mascota3.setUsuario(cliente2);
 		mascota4.setUsuario(cliente3);
+		
 		mascota1.setClinica(clinica1);
+		mascota2.setClinica(clinica1);
+		mascota3.setClinica(clinica1);
+		mascota4.setClinica(clinica1);
+		
 		/*cliente1.addMascota(mascota1);;
 		cliente2.addMascota(mascota2);
 		cliente3.addMascota(mascota3);

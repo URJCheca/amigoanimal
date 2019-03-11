@@ -221,10 +221,12 @@ public class ClinicaController {
 		model.addAttribute("raza", mascota.getRaza());
 		model.addAttribute("color", mascota.getColor());
 		model.addAttribute("owner", mascota.getUsuario().getName());
+		model.addAttribute("registro",mascota.getRegistro());
+		
 			return "modificarmascota_template";
 	}
 	@GetMapping("/cambiar_mascota")
-	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam String especie,@RequestParam String raza,@RequestParam String color) {
+	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam String especie,@RequestParam String raza,@RequestParam String color,@RequestParam String registro,@RequestParam String clinica) {
 		long longID=Long.parseLong(id);
 		Optional<Mascota> optional=mascotaRepositorio.findById(longID);
 		Mascota mascota= optional.get();
@@ -232,6 +234,10 @@ public class ClinicaController {
 		mascota.setEspecie(especie);
 		mascota.setRaza(raza);
 		mascota.setColor(color); 
+		if (!registro.equals("")) {
+			String old_registro = mascota.getRegistro();
+			mascota.setRegistro(old_registro+"["+clinica+"]: "+registro+"\n");
+		}
 		mascotaRepositorio.save(mascota);
 		model.addAttribute("mascota", true);
 			return "cambioexitoso_template";
