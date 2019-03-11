@@ -1,5 +1,8 @@
 package com.dad.amigoanimal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -15,8 +18,8 @@ public class Mascota {
 	
 	@ManyToOne
 	private Cliente usuario;
-	@ManyToOne
-	private Clinica clinica;
+	@ManyToMany
+	private List<Clinica> clinica;
 	private String name;
 	private String especie;
 	private String raza;
@@ -32,6 +35,7 @@ public class Mascota {
 		this.raza = raza;
 		this.color = color;
 		this.registro="";
+		this.clinica= new ArrayList<Clinica>();
 		/*this.clinica=clinica;*/
 		
 	}
@@ -75,11 +79,11 @@ public class Mascota {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public Clinica getClinica() {
+	public List<Clinica> getClinica() {
 		return clinica;
 	}
 	public void setClinica(Clinica clinica) {
-		this.clinica = clinica;
+		this.clinica.add(clinica);
 	}
 	
 	public String getRegistro() {

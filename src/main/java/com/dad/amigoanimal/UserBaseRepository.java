@@ -13,9 +13,9 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface UserBaseRepository<T extends Usuario> extends JpaRepository <Usuario,Long> {
 	
 	Optional<Usuario> findByLogin(String login);
-	Page<Usuario> findByName(String name, Pageable page);
+	List<Usuario> findByName(String name/*, Pageable page*/);
 	Page<Usuario> findByContrasena(String contrasena, Pageable page);
 	Usuario findByDocument (String document);
-	Page<Usuario> findByClinica (Clinica clinica, Pageable page);
+	//List<Usuario> findByClinica (Clinica clinica/*, Pageable page*/);
 	Page<Usuario> findByEmail (String email, Pageable page);
 }

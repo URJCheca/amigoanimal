@@ -76,7 +76,7 @@ public class ClinicaController {
 					}
 				}
 			}else{
-				usuario= usuarioRepositorio.findByDocument(document);
+				usuario= (Cliente) usuarioRepositorio.findByDocument(document);
 				if (usuario==null) {
 					model.addAttribute("userror", true);
 					return "busquedamascota_template";
@@ -118,7 +118,7 @@ public class ClinicaController {
 					}
 				}
 			}else{
-				usuario= usuarioRepositorio.findByDocument(document);
+				usuario= (Cliente) usuarioRepositorio.findByDocument(document);
 				if (usuario==null) {
 					model.addAttribute("userror", true);
 					return "busquedamascota_template";
@@ -156,26 +156,18 @@ public class ClinicaController {
 		return "busquedamascota_template";
 	}
 	
-	
-	
-	
-	
-	
 	@GetMapping ("/registrar_mascota")
 	public String registrarMascota (Model model) {
 		
 		return "clinicaAlta_template";
 	}
 	
-	
-
-
 	@GetMapping ("/mascota_alta")
 	public String altaMascota(Model model, @RequestParam String ownerDoc, @RequestParam String name, @RequestParam String especie, @RequestParam String raza, @RequestParam String color) {
 	
 		Cliente user;
 
-		user = usuarioRepositorio.findByDocument(ownerDoc);
+		user = (Cliente) usuarioRepositorio.findByDocument(ownerDoc);
 
 		if (user!=null) {
 			System.out.println ("entro al if");
@@ -184,7 +176,7 @@ public class ClinicaController {
 			//ver por que esto
 			if (user.getClinica() != null) {
 				System.out.println("Existe clinica del usuario");
-				mascotaNueva.setClinica(user.getClinica());
+				mascotaNueva.setClinica(user.getClinica().get(0));
 			} else {
 				mascotaNueva.setClinica(clinicaRepositorio.findByName("Las Aguilas")); 
 				}

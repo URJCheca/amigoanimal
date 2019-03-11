@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,8 +22,8 @@ public class Usuario {
 	
 	/*@OneToMany(mappedBy="usuario")
 	private List <Mascota>  mascotas;*/
-	@ManyToOne
-	protected Clinica  clinica;
+	/*@ManyToMany
+	protected List<Clinica> clinica;*/
 	protected String login;
 	protected String name;
 	protected String email;
@@ -88,13 +89,13 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public Clinica getClinica() {
+	/*public Clinica getClinica() {
 		return clinica;
 	}
 
 	public void setClinica(Clinica clinica) {
 		this.clinica = clinica;
-	}
+	}*/
 	/*
 	public int getPuntos() {
 		return puntos;

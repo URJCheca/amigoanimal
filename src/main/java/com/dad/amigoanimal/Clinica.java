@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -18,11 +19,11 @@ public class Clinica {
 	private String name;
 	private int salas;
 	
-	@OneToMany(mappedBy="clinica")
+	@ManyToMany(mappedBy="clinica")
 	private List <Cliente>  clientes;
 	/*@OneToMany(mappedBy="clinica")
 	private List <Trabajador>  trabajadores;*/
-	@OneToMany(mappedBy="clinica")
+	@ManyToMany(mappedBy="clinica")
 	private List<Mascota> mascotas;
 		
 	
