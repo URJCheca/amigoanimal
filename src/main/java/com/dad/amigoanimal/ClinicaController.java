@@ -1,5 +1,7 @@
 package com.dad.amigoanimal;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -57,14 +59,77 @@ public class ClinicaController {
 		Clinica clinic;
 
 		clinic=clinicaRepositorio.findByName(clinica);
-	
-		//realizar para cada una de las posibles busquedas
+		usuario= (Cliente) usuarioRepositorio.findByDocument(document);
+		PageRequest pagerequest=new PageRequest(numPag, numElem);
 		
+	//Da un valor aa los parametros. Suma los valores si tienen contenido y accede al caso que le corresponda
+		int funcion=0;
+		
+		if (!clinica.equals("")) { 
+			funcion+=1;
+			if (clinic==null) {
+				model.addAttribute("clerror", true);
+				return "busquedamascota_template";
+			}
+		}
+		
+		if (!document.equals("")) {
+		  	funcion+=2;
+		  	if (usuario==null) {
+				model.addAttribute("userror", true);
+				return "busquedamascota_template";
+			}
+		}
+		
+		if(!especie.equals(""))
+		 	funcion+=4; 
+		
+		if(!nombre.equals("")) 
+			funcion+=8;
+		  
+		  switch (funcion){
+		  	/*default: lista=mascotaRepositorio.findAll(pagerequest);
+		  			break;*/
+		  	case 1: lista = mascotaRepositorio.findByClinica(clinic, pagerequest);
+		  			break;
+		  	case 2: lista = mascotaRepositorio.findByUsuario(usuario, pagerequest);
+		  			break;
+		  	case 3: lista = mascotaRepositorio.findByUsuarioAndClinica(usuario, clinic, pagerequest);
+	  				break;
+		  	case 4: lista=mascotaRepositorio.findByEspecie(especie, pagerequest);
+  					break;
+		  	case 5: lista=mascotaRepositorio.findByEspecieAndClinica(especie, clinic, pagerequest);
+  					break;
+		  	case 6: lista=mascotaRepositorio.findByUsuarioAndEspecie(usuario, especie, pagerequest);
+  					break;
+		  	case 7:	lista=mascotaRepositorio.findByUsuarioAndEspecieAndClinica(usuario, especie, clinic, pagerequest);
+  					break;
+		  	case 8: lista=mascotaRepositorio.findByName(nombre,pagerequest);
+					break;
+		  	case 9: lista=mascotaRepositorio.findByNameAndClinica(nombre, clinic, pagerequest);
+  					break;
+		  	case 10:lista=mascotaRepositorio.findByNameAndUsuario(nombre, usuario, pagerequest);
+  					break;
+		  	case 11:lista=mascotaRepositorio.findByNameAndUsuarioAndClinica(nombre, usuario, clinic, pagerequest);
+					break;
+		  	case 12:lista=mascotaRepositorio.findByNameAndEspecie(nombre, especie, pagerequest);
+					break;
+		  	case 13:lista=mascotaRepositorio.findByNameAndEspecieAndClinica(nombre, especie, clinic, pagerequest);
+		  			break;
+		  	case 14:lista=mascotaRepositorio.findByNameAndUsuarioAndEspecie(nombre, usuario, especie, pagerequest);
+					break;
+		  	case 15:lista=mascotaRepositorio.findByNameAndUsuarioAndEspecieAndClinica(nombre, usuario, especie, clinic, pagerequest);
+		  			break;
+		  	default: lista=mascotaRepositorio.findAll(pagerequest);
+  			
+		  	}
+		 /* 
 		if (clinica=="") {
 			if (document=="") {
 				if(especie=="") {
 					if(nombre=="") {
 						lista=mascotaRepositorio.findAll(new PageRequest(numPag, numElem));
+						
 					}else {
 						lista=mascotaRepositorio.findByName(nombre,new PageRequest(numPag, numElem));
 					}
@@ -139,7 +204,7 @@ public class ClinicaController {
 				}
 			}
 			
-		}
+		}*/
 				
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("document", document);
@@ -218,7 +283,8 @@ public class ClinicaController {
 			return "modificarmascota_template";
 	}
 	@GetMapping("/cambiar_mascota")
-	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam String especie,@RequestParam String raza,@RequestParam String color,@RequestParam String registro,@RequestParam String clinica) {
+	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam String especie,
+			@RequestParam String raza,@RequestParam String color,@RequestParam String registro,@RequestParam String clinica) {
 		long longID=Long.parseLong(id);
 		Optional<Mascota> optional=mascotaRepositorio.findById(longID);
 		Mascota mascota= optional.get();

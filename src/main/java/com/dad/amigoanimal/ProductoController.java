@@ -101,11 +101,47 @@ public class ProductoController {
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
 		Page<Producto> lista;
 		Carrito carrito= new Carrito();
+		
 		int sigPag= numPag+1;
-		System.out.println("_"+nombre+"_");
+		int precioaux=precio+1;
+		
+		PageRequest pagerequest=new PageRequest(numPag, numElem);
+		
 		//realizar para cada una de las posibles busquedas
 		
-		if (precio==0) {
+		int funcion=0;
+		
+		if (!nombre.equals(""))  
+			funcion+=1;
+					
+		if (!tipo.equals("")) 
+		  	funcion+=2;
+		
+		if(precio!=0)
+		 	funcion+=4; 
+		  
+		  switch (funcion){
+		  	/*default: lista=mascotaRepositorio.findAll(pagerequest);
+		  			break;*/
+		  	case 1: lista = productoRepositorio.findByName(nombre, pagerequest);
+		  			break;
+		  	case 2: lista = productoRepositorio.findByCategory(tipo, pagerequest);
+		  			break;
+		  	case 3: lista = productoRepositorio.findByNameAndCategory(nombre, tipo, pagerequest);
+	  				break;
+		  	case 4: lista=productoRepositorio.findByPriceBetween(0, precioaux, pagerequest);
+  					break;
+		  	case 5: lista=productoRepositorio.findByNameAndPriceBetween(nombre, 0, precioaux, pagerequest);
+  					break;
+		  	case 6: lista=productoRepositorio.findByCategoryAndPriceBetween(tipo, 0, precioaux, pagerequest);
+  					break;
+		  	case 7:	lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre, tipo, 0, precioaux, pagerequest);
+  					break;
+		  	default: lista=productoRepositorio.findAll(pagerequest);
+  			
+		  	}
+		  
+		/*if (precio==0) {
 			
 			if (tipo.equals("All")) {
 				if(nombre.equals("")) {
@@ -141,7 +177,7 @@ public class ProductoController {
 					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precioaux,new PageRequest(numPag, numElem));
 				}
 			}
-		}
+		}*/
 		
 		model.addAttribute("nombre",nombre);
 		model.addAttribute("tipo", tipo);
