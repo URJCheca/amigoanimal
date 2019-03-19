@@ -114,8 +114,11 @@ public class ProductoController {
 		if (!nombre.equals(""))  
 			funcion+=1;
 					
-		if (!tipo.equals("")) 
+		if (!tipo.equals("All")) 
 		  	funcion+=2;
+		
+		/*if(!tipo.equals(""))
+			funcion-=2;*/
 		
 		if(precio!=0)
 		 	funcion+=4; 
