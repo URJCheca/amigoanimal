@@ -13,13 +13,15 @@ public class ClienteSocket {
 	public static void enviarSocket () {
 		int port= 9999;
 	try {
-		ServerSocket serverSocket = new ServerSocket(port) ;
-		Socket socket = serverSocket.accept();
-		OutputStream os = socket.getOutputStream();
+		Socket serverSocket = new Socket("127.0.0.1",port) ;
+		//Socket socket = serverSocket.accept();
+		OutputStream os = serverSocket.getOutputStream();
 		Producto producto= new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30);
 		ObjectOutputStream oos= new ObjectOutputStream (os);
-		oos.writeObject(producto);
-		
+		oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
+
+		oos.flush();
+		oos.close();
 		
 		
 	}
