@@ -3,7 +3,9 @@ package com.dad.amigoanimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Inheritance
@@ -31,16 +35,22 @@ public class Usuario {
 	protected String contrasena;
 	//private List<String[]> tarjetas;
 	//private int puntos=0;
-	protected int rol;
+	
+	private String passwordHash;
+	private String rol;
+	
+	//@ElementCollection(fetch = FetchType.EAGER)
+	//private List<String> roles;
 
 	
 	public Usuario() {
 	}
 	
-	public Usuario(String login,String name, String contrasena, String document, String email, int rol) {
+	public Usuario(String login,String name, String contrasena, String document, String email, String rol) {
 		this.login=login;
 		this.name = name;
 		this.contrasena = contrasena;
+		this.setPasswordHash(contrasena);
 		this.document = document;
 		this.email = email;
 		this.rol = rol;
@@ -61,7 +71,7 @@ public class Usuario {
 		this.name = name;
 	}
 	
-	public int getRol() {
+	public String getRol() {
 		return rol;
 	}
 
@@ -81,12 +91,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getContrasena() {
-		return contrasena;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setPasswordHash(String password) {
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
 	}
 
 	/*public Clinica getClinica() {

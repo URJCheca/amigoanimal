@@ -14,10 +14,12 @@
 		
 		<input type="submit" class="baseButton" value='Mascotas Registradas' />
 		<input type="hidden" name=numPag value="0"readonly/>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 		<br>
 		<form action="registrar_mascota">
 		<input type="submit" class="baseButton" value='Dar de alta una mascota' />
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 		
 		

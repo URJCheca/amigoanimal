@@ -11,11 +11,20 @@
 <div class="baseImage">
 	<img class="imgLogo" src="/images/logo.png">
 	<div class="baseText">
-		<p>Bienvenido a Amigo Animal</p>
-		<form action="signin"><input type="submit" class="baseButton" value='Iniciar Sesion' /></form>
-		<form action="signup"><input type="submit" class="baseButton" value='Registrarse' /></form>
-		<form action="crear_carrito"><input type="submit" class="baseButton" value='Tienda' /></form>
-		<form action="clinica"><input type="submit" class="baseButton" value='Clinica Veterinaria' /></form>
+		<p>Bienvenido a Amigo Animal {{name}}</p>
+		<form action="signin"><input type="submit" class="baseButton" value='Iniciar Sesion' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		<form action="signup"><input type="submit" class="baseButton" value='Registrarse' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		<form action="crear_carrito"><input type="submit" class="baseButton" value='Tienda' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		{{#admin}}
+		<form action="clinica"><input type="submit" class="baseButton" value='Clinica Veterinaria' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		{{/admin}}
+		<form action="logout"><input type="submit" class="baseButton" value='Logout' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		
 	</div>
 </div>
 </body>

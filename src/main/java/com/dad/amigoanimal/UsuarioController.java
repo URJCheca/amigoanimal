@@ -3,6 +3,7 @@ package com.dad.amigoanimal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,15 @@ public class UsuarioController {
 	/*@Autowired
 	private UserBaseRepository usuarioRepositorio;
 	*/
+	//@Autowired
+	//private UserSesion userSesion;
+	
 	@PostConstruct
 	public void init() {
-		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com",1);
-		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com",1);
-		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com",1);
+		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com","ROLE_USER");
+		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com","ROLE_USER");
+		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com","ROLE_USER");
+		Trabajador trabajador =new Trabajador("Jose","jose","jose123","11111111f","jose@gmail.com","ROLE_ADMIN");
 		
 		
 		Mascota mascota1=new Mascota("Congo","Loro","Yaco","Gris");
@@ -77,13 +82,33 @@ public class UsuarioController {
 			
 	}
 	
-	@RequestMapping("/signin")
+	@GetMapping("/signin")
 	public String loginController (Model model) {
 		return "signin_template";
 	}
 	
-	@GetMapping("/user_login")
-	public String  LogearUsuario(Model model, @RequestParam String nombre, @RequestParam String contrasena) {
+	@GetMapping("/signed")
+	public String logedController (Model model, HttpServletRequest request) {
+		model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
+		model.addAttribute("name", request.getUserPrincipal().getName());
+		return "greeting_template";
+	}
+	
+	@GetMapping ("/signin_fail")
+	public String loginFail (Model model) {
+		model.addAttribute("fail", true);
+		System.out.println("fallo");
+		return "signin_template";
+	}
+	
+	@GetMapping ("/logout")
+	public String cerrarSesion (Model model, HttpServletRequest request) {
+		model.addAttribute("name", request.getUserPrincipal().getName());
+		return "greeting_template";
+	}
+		
+	/*@GetMapping("/user_login")
+	public String logearUsuario(Model model, @RequestParam String nombre, @RequestParam String contrasena) {
 		
 		List<Cliente> user;
 		user = clienteRepositorio.findByName(nombre);
@@ -94,18 +119,18 @@ public class UsuarioController {
 				return "greeting_template";
 			} /*else {
 				System.out.println("Contraseña equivocada");
-			}*/
+			}
 		}
-		model.addAttribute("fail", true);
+		
 		return "signin_template";
-	}
+	}*/
 	
 	@RequestMapping("/signup")
 	public String registerController (Model model) {
 		return "signup_template";
 	}
 	
-	@GetMapping("/registrar_user")
+	/*@GetMapping("/registrar_user")
 	public String  RegistrarUsuario(Model model, @RequestParam String login, @RequestParam String contrasena, @RequestParam String contrasena2, @RequestParam String email) {
 		Boolean coincideLogin=clienteRepositorio.findByLogin(login).isPresent();
 		System.out.println("llego aqui");
@@ -123,11 +148,12 @@ public class UsuarioController {
 		model.addAttribute("usado", true);
 		return "signup_template";	
 	}
+	*/
 	
 	@GetMapping("/continuacion_registro")
 	public String  ContinuacionRegistro(Model model, @RequestParam String login,@RequestParam String nombre, @RequestParam String contrasena, @RequestParam String email,@RequestParam String documento) {
 		
-			Cliente usuario_nuevo = new Cliente(login,nombre, contrasena, documento, email, 1); 
+			Cliente usuario_nuevo = new Cliente(login,nombre, contrasena, documento, email, "ROLE_USER"); 
 			clienteRepositorio.save(usuario_nuevo);
 			System.out.println("Registrado con exito: " + nombre);
 			return "greeting_template";

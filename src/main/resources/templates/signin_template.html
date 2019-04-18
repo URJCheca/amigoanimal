@@ -8,15 +8,16 @@
 <body>
 <div class="baseImage">
 	<div class="registroText">
-		<form action="user_login">
+		<form action="signin"  method="post">
 		{{#fail}}
 		 Datos de acceso incorrectos. Intentelo de nuevo
 		{{/fail}}
-				<p>Usuario :</p><input type='text' name='nombre' />
-				<p>Password :</p><input type="password" name='contrasena' />
+				<p>Usuario </p><input type='text' name='user' />
+				<p>Password </p><input type='password' name='pass' />
 				<br>
 				<br>
 				<input type='submit' class="baseButton" value='Iniciar' />
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 	</div>
 </div>				

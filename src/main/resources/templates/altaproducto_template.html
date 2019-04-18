@@ -16,6 +16,7 @@
 				<textarea rows='4' cols='50' name='descripcion'></textarea>
 				<p>Stock:</p> <input type='number' name='stock'>
 			    <input type='submit' class="baseButton" value='Registrar' />
+			    <input type="hidden" name="_csrf" value="{{token}}"/>
 			    {{#error}}
 			    <p> El producto que intenta registrar ya existe. Por favor revise los datos</p>
 			    {{/error}}

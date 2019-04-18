@@ -47,18 +47,22 @@
 			<form action="registro_mascotas">
 			<input type="hidden" name=numPag value={{numPag}} readonly/>
 					<input type="submit" class="baseButton" value="Siguiente"> 
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 			
 			<form action="busqueda_mascota">
 				<input type= 'submit' class="baseButton" value='Busqueda Avanzada'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 			
 			<form action="registrar_mascota">
-			<input type="submit" class="baseButton" value='Dar de alta una mascota' />
+				<input type="submit" class="baseButton" value='Dar de alta una mascota' />
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 			
 			<form action="greeting">
 				<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 			<!--  {{#trabajador}}
 			

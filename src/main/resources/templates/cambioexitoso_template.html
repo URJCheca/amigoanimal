@@ -13,18 +13,21 @@
 		<form action="catalogo">
 			<input type="hidden" name="numPag" value="0" readonly/>
 				<input type= 'submit' class="baseButton" value='Volver al catalogo'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 		{{/catalogo}}
 		{{#usuario}}
 		<form action="catalogo">
 			<input type="hidden" name="numPag" value="0" readonly/>
 				<input type= 'submit' class="baseButton" value='Volver al catalogo'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 		{{/usuario}}
 		{{#mascota}}
 		<form action="registro_mascotas">
 			<input type="hidden" name="numPag" value="0" readonly/>
 				<input type= 'submit' class="baseButton" value='Volver al registro'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 		{{/mascota}}
 			

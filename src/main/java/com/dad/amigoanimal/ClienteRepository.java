@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 	
 @Transactional
 public interface ClienteRepository extends UserBaseRepository {
+	Cliente findByName (String name);
 	//Optional<Cliente> findById(Long id);
 	//Optional<Cliente> findByLogin(String login);
 	//List<Cliente> findByName(String name);

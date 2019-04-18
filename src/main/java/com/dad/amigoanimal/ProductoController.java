@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,12 @@ public class ProductoController {
 	@Autowired
 	private ProductoRepository productoRepositorio;
 	
+	@Autowired
+	private ClienteRepository userRepository;
+	
 	int numElem= 2;
+	String nombre;
+	Cliente usuario;
 	
 	@PostConstruct
 	public void init() {
@@ -42,21 +48,21 @@ public class ProductoController {
 	}
 	@RequestMapping("/crear_carrito")
 	public String crearCarrito (Model model) {
-		Carrito carrito= new Carrito();
+		//Carrito carrito= new Carrito();
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
-		model.addAttribute("carrito",carrito);
+		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);
 		
 		return "catalogo_template";
 	}
 	@RequestMapping ("/catalogo")
-	public String catalogoController (Model model, @RequestParam int numPag, @RequestParam Carrito carrito) {
+	public String catalogoController (Model model, @RequestParam int numPag/*, @RequestParam Carrito carrito*/) {
 		
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(numPag, numElem));
 		
 		model.addAttribute("productos",lista);
-		model.addAttribute("carrito",carrito);
+		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", numPag+1);
 		
 		return "catalogo_template";
@@ -64,32 +70,38 @@ public class ProductoController {
 	
 	
 	@RequestMapping ("/ver_carrito")
-	public String  verCarrito (Model model, Carrito carrito) {
+	public String  verCarrito (Model model, HttpServletRequest request) {
 		
-		Set<Entry<Producto, Integer>> cosas = carrito.getCosas();
+		/*Set<Entry<Producto, Integer>> cosas = carrito.getCosas();
 		for (Entry<Producto, Integer> cosa : cosas) {
 			   Producto key = cosa.getKey();
 			   Integer value = cosa.getValue();
 			  model.addAttribute("clave", key);
 			  model.addAttribute("valor", value);
 			} 
-
-		model.addAttribute("precio",carrito.getPrecioTotal());
+		*/
+		nombre = request.getUserPrincipal().getName();
+		usuario = userRepository.findByName(nombre);
+		model.addAttribute("lista", usuario.getLista());
+		model.addAttribute("precio", usuario.getPrecioTotal());
 		
 		return "carrito_template";
 		
 	}
 	@RequestMapping ("/aniadir_carrito")
-	public String aniadirCarrito (Model model, String id, int quantity, Carrito carrito) {
+	public String aniadirCarrito (Model model, String id, int quantity, /*Carrito carrito,*/ HttpServletRequest request) {
 
 		long longID=Long.parseLong(id);
 		Optional<Producto> optional=productoRepositorio.findById(longID);
 		Producto producto= optional.get();
-		carrito.addProducto(producto, quantity);
-		System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
+		nombre = request.getUserPrincipal().getName();
+		usuario = userRepository.findByName(nombre);
+		usuario.addProducto(producto, quantity);
+		//carrito.addProducto(producto, quantity);
+		//System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
-		model.addAttribute("carrito",carrito);
+		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);
 		
 		return "catalogo_template";
@@ -100,7 +112,7 @@ public class ProductoController {
 	@GetMapping ("/busqueda_avanzada_producto")
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
 		Page<Producto> lista;
-		Carrito carrito= new Carrito();
+		//Carrito carrito= new Carrito();
 		
 		int sigPag= numPag+1;
 		int precioaux=precio+1;
@@ -187,7 +199,7 @@ public class ProductoController {
 		model.addAttribute("precio",precio);
 		model.addAttribute("productos",lista);
 		model.addAttribute("numPag", sigPag);
-		model.addAttribute("carrito",carrito);
+		//model.addAttribute("carrito",carrito);
 		return "catalogobusqueda_template";
 	}
 	

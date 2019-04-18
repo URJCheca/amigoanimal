@@ -19,6 +19,7 @@ public class AppController {
 	//Redirecciona a la pagina principal
 	@RequestMapping ("/greeting")
 	public String greetingController (Model model) {
+		model.addAttribute("name", " ");
 		return "greeting_template";
 	}
 	//Redirecciona a la pagina de login

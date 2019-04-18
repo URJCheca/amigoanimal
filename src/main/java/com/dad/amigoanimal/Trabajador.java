@@ -9,7 +9,7 @@ public class Trabajador extends Usuario{
 		super();
 	}
 
-	public Trabajador(String login,String name, String contrasena, String document, String email,int rol) {
+	public Trabajador(String login,String name, String contrasena, String document, String email,String rol) {
 		super(login,name, contrasena, document, email,rol);
 	}
 
