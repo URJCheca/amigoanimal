@@ -1,10 +1,10 @@
 .baseImage {
   background-image: url("/images/fondo2.jpg");
-  background-color: #cccccc;
-  height: 700px;
+  background-color: #5DBCD2;
+  height: 850px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
   position: relative;
 }
 
@@ -74,6 +74,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  background-color: #B3E0FF;
 }
 
 .tablaInt{
@@ -102,4 +103,7 @@
   margin-right: 10px;
   padding: 0 4px;
   width: 3em;
+}
+p {
+    white-space: pre-line;
 }

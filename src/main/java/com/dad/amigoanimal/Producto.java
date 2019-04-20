@@ -72,4 +72,15 @@ public class Producto {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+	    return name.hashCode();
+	}
+	
+	public boolean equals(Producto p)
+	{
+	    return this.name.equals(p.getName());
+	}
 }

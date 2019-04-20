@@ -9,7 +9,6 @@
 <div class="baseImage">
 	<div class="registroText">
 		<form action="ver_carrito">
-					<input type="hidden" name= carrito value={{carrito}} readonly/>
 					<input type="submit" class="baseButton" value="Mi Carrtito"> 
 				</form>
 			{{#productos}}
@@ -37,7 +36,6 @@
 				</ul>
 					<form action="aniadir_carrito">
 						<input type="hidden" name= id value={{id}} readonly/>
-						<input type="hidden" name= carrito value={{carrito}} readonly/>
 						<input type="number" name= "quantity" value="1"/>
 						<input type="submit" class="catalogoButton" value="Aniadir al carrito"> 
 					</form>

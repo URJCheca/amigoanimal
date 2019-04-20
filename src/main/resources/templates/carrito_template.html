@@ -10,6 +10,9 @@
 	<div class="baseText">
 		<p></p> {{lista}}
 		<p>Precio Total: </p>{{precio}}
+		<form action="crear_carrito">
+			<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 	</div>
 </div>
 </body>

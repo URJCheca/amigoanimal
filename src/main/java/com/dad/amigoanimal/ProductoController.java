@@ -28,9 +28,10 @@ public class ProductoController {
 	@Autowired
 	private ClienteRepository userRepository;
 	
-	int numElem= 2;
+	int numElem= 3;
 	String nombre;
 	Cliente usuario;
+	private /*static*/ HashMap<Producto, Integer> carrete;
 	
 	@PostConstruct
 	public void init() {
@@ -96,14 +97,19 @@ public class ProductoController {
 		Producto producto= optional.get();
 		nombre = request.getUserPrincipal().getName();
 		usuario = userRepository.findByName(nombre);
-		usuario.addProducto(producto, quantity);
+		carrete = usuario.getMap();
+		System.out.println("+" + carrete.size());
+		carrete = usuario.addProducto2(producto, quantity, carrete);
+		System.out.println("++" + carrete.size());
+		usuario.setMap(carrete);
+		System.out.println("+++" + usuario.getMap().size());
 		//carrito.addProducto(producto, quantity);
 		//System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
 		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);
-		
+		model.addAttribute("lista", usuario.getLista());
 		return "catalogo_template";
 	}
 	

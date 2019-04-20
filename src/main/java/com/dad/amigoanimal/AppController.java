@@ -2,6 +2,8 @@ package com.dad.amigoanimal;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AppController {
 	
-	
+	/*
 	@Autowired
 	private ProductoRepository productoRepositorio;
-	
+	@Autowired
+	private ClienteRepository userRepository;
+	*/
 	//Redirecciona a la pagina principal
 	@RequestMapping ("/greeting")
-	public String greetingController (Model model) {
-		model.addAttribute("name", " ");
+	public String greetingController (Model model, HttpServletRequest request) {
+		//nombre = request.getUserPrincipal().getName();
+		//usuario = userRepository.findByName(nombre);
+		//model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
+		//model.addAttribute("name", request.getUserPrincipal().getName());
+		//System.out.println(request.getUserPrincipal().getName());
 		return "greeting_template";
 	}
 	//Redirecciona a la pagina de login

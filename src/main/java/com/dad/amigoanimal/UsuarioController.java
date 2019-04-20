@@ -1,11 +1,16 @@
 package com.dad.amigoanimal;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +34,7 @@ public class UsuarioController {
 	
 	@PostConstruct
 	public void init() {
+		
 		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com","ROLE_USER");
 		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com","ROLE_USER");
 		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com","ROLE_USER");
@@ -89,8 +95,6 @@ public class UsuarioController {
 	
 	@GetMapping("/signed")
 	public String logedController (Model model, HttpServletRequest request) {
-		model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
-		model.addAttribute("name", request.getUserPrincipal().getName());
 		return "greeting_template";
 	}
 	
@@ -102,8 +106,11 @@ public class UsuarioController {
 	}
 	
 	@GetMapping ("/logout")
-	public String cerrarSesion (Model model, HttpServletRequest request) {
-		model.addAttribute("name", request.getUserPrincipal().getName());
+	public String cerrarSesion (Model model, HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
 		return "greeting_template";
 	}
 		
