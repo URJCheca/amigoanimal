@@ -8,6 +8,8 @@ public class AmigoAnimalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AmigoAnimalApplication.class, args);
+		
+		ClienteSocket.enviarSocket();
 	}
 
 }
