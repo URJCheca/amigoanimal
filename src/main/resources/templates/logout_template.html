@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="baseImage">
+	<div class="registroText">
+		<form action="logout"  method="post">
+
+				<p>Usuario </p><input type='text' name='user' />
+				<p>Password </p><input type='password' name='pass' />
+				<br>
+				<br>
+				<input type='submit' class="baseButton" value='Iniciar' />
+				<input type="hidden" name="_csrf" value="{{token}}"/>
+		</form>
+	</div>
+</div>				
+</body>
+</html>
