@@ -21,10 +21,10 @@ public class ClienteSocket {
 		try {
 			SocketFactory socketFactory= SSLSocketFactory.getDefault();
 			SSLSocket socket = (SSLSocket)socketFactory.createSocket("127.0.0.1",port) ;
-			while (true) {
+			//while (true) {
 				Thread t = new Thread(new ProcesadorSocket (socket));
 				t.start();
-			}
+			//}
 			
 			/*Socket socket = serverSocket.accept();
 			OutputStream os = serverSocket.getOutputStream();
