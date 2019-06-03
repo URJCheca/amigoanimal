@@ -27,6 +27,7 @@ public class ProcesadorSocket implements Runnable {
 			socket.close();
 		}catch (IOException e) {
 			System.out.println("Fallo en la conexion"+e);
+			e.printStackTrace();
 		}
 	}
 }
