@@ -1,16 +1,10 @@
 package com.dad.amigoanimal;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-
-import java.util.List;
 import java.util.Optional;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,8 +82,6 @@ public class ClinicaController {
 			funcion+=8;
 		  
 		  switch (funcion){
-		  	/*default: lista=mascotaRepositorio.findAll(pagerequest);
-		  			break;*/
 		  	case 1: lista = mascotaRepositorio.findByClinica(clinic, pagerequest);
 		  			break;
 		  	case 2: lista = mascotaRepositorio.findByUsuario(usuario, pagerequest);
@@ -123,88 +115,7 @@ public class ClinicaController {
 		  	default: lista=mascotaRepositorio.findAll(pagerequest);
   			
 		  	}
-		 /* 
-		if (clinica=="") {
-			if (document=="") {
-				if(especie=="") {
-					if(nombre=="") {
-						lista=mascotaRepositorio.findAll(new PageRequest(numPag, numElem));
-						
-					}else {
-						lista=mascotaRepositorio.findByName(nombre,new PageRequest(numPag, numElem));
-					}
-				}else{
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByEspecie(especie,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndEspecie(nombre,especie,new PageRequest(numPag, numElem));
-					}
-				}
-			}else{
-				usuario= (Cliente) usuarioRepositorio.findByDocument(document);
-				if (usuario==null) {
-					model.addAttribute("userror", true);
-					return "busquedamascota_template";
-				}
-				
-				if(especie=="") {
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByUsuario(usuario,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndUsuario(nombre,usuario,new PageRequest(numPag, numElem));
-					}
-				}else{
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByUsuarioAndEspecie(usuario,especie,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndUsuarioAndEspecie(nombre,usuario,especie,new PageRequest(numPag, numElem));
-					}
-				}
-			}
-			
-		}else {
-			clinic=clinicaRepositorio.findByName(clinica);
-			if (clinic==null) {
-				model.addAttribute("clerror", true);
-				return "busquedamascota_template";
-			}
-			if (document=="") {
-				if(especie=="") {
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByClinica(clinic,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndClinica(nombre,clinic,new PageRequest(numPag, numElem));
-					}
-				}else{
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByEspecieAndClinica(especie,clinic,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndEspecieAndClinica(nombre,especie,clinic,new PageRequest(numPag, numElem));
-					}
-				}
-			}else{
-				usuario= (Cliente) usuarioRepositorio.findByDocument(document);
-				if (usuario==null) {
-					model.addAttribute("userror", true);
-					return "busquedamascota_template";
-				}
-				
-				if(especie=="") {
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByUsuarioAndClinica(usuario,clinic,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndUsuarioAndClinica(nombre,usuario,clinic,new PageRequest(numPag, numElem));
-					}
-				}else{
-					if(nombre=="") {
-						lista=mascotaRepositorio.findByUsuarioAndEspecieAndClinica(usuario,especie,clinic,new PageRequest(numPag, numElem));
-					}else {
-						lista=mascotaRepositorio.findByNameAndUsuarioAndEspecieAndClinica(nombre,usuario,especie,clinic,new PageRequest(numPag, numElem));
-					}
-				}
-			}
-			
-		}*/
+		
 				
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("document", document);

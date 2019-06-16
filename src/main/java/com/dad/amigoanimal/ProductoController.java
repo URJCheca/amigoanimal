@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.Cacheable;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +115,6 @@ public class ProductoController {
 	}
 	
 
-	
 	@GetMapping ("/busqueda_avanzada_producto")
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
 		Page<Producto> lista;

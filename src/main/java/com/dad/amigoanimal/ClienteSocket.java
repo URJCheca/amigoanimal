@@ -18,23 +18,22 @@ import java.lang.Thread;
 public class ClienteSocket {
 	public static void enviarSocket () {
 		int port= 9999;
+		String confirmacion= "FAIL";
 		try {
-			SocketFactory socketFactory= SSLSocketFactory.getDefault();
-			SSLSocket socket = (SSLSocket)socketFactory.createSocket("127.0.0.1",port) ;
-			//while (true) {
-				Thread t = new Thread(new ProcesadorSocket (socket));
-				t.start();
-			//}
-			
-			/*Socket socket = serverSocket.accept();
-			OutputStream os = serverSocket.getOutputStream();
-			Producto producto= new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30);
+			Socket socket= new Socket("127.0.0.1",port);
+			OutputStream os = socket.getOutputStream();
 			ObjectOutputStream oos= new ObjectOutputStream (os);
-			oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
-
+			InputStream is =  socket.getInputStream();
+			ObjectInputStream ois= new ObjectInputStream (is);
+			while (confirmacion.equals("FAIL")) {
+				oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
+				System.out.println("Realizando envio");
+				confirmacion=(String)ois.readObject();
+			}
 			oos.flush();
-			oos.close();*/
-		}catch(IOException e){
+			os.close();
+			socket.close();
+		}catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		
 		}
