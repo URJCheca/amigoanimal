@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -16,24 +17,30 @@ import java.lang.Thread;
 
 
 public class ClienteSocket {
-	public static void enviarSocket () {
+	public static void enviarSocket (Cliente usuario, HashMap<Producto, Integer> carrito) {
 		int port= 9999;
 		String confirmacion= "FAIL";
 		try {
 			Socket socket= new Socket("127.0.0.1",port);
+			System.out.println("Me cago en tus muertos 1");
 			OutputStream os = socket.getOutputStream();
+			System.out.println("Me cago en tus muertos 2");
 			ObjectOutputStream oos= new ObjectOutputStream (os);
+			System.out.println("Me cago en tus muertos 3");
 			InputStream is =  socket.getInputStream();
-			ObjectInputStream ois= new ObjectInputStream (is);
-			while (confirmacion.equals("FAIL")) {
-				oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
-				System.out.println("Realizando envio");
-				confirmacion=(String)ois.readObject();
-			}
+			System.out.println("Me cago en tus muertos 4");
+
+			System.out.println("Me cago en tus muertos 5");
+			System.out.println("Me cago en tus muertos 6");
+			oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
+			oos.writeObject(usuario.getEmail());
+			oos.writeObject(carrito);
 			oos.flush();
+			System.out.println("Realizando envio");
+			System.out.println("Me cago en tus muertos 7");
 			os.close();
 			socket.close();
-		}catch(IOException | ClassNotFoundException e){
+		}catch(IOException e){
 			e.printStackTrace();
 		
 		}

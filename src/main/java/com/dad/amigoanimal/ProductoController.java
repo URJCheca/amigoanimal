@@ -274,6 +274,20 @@ public class ProductoController {
 		return "cambioexitoso_template";
 	}
 			
+	@RequestMapping ("/enviar_carrito")
+	public String enviarCarrito (Model model, /*Carrito carrito,*/ HttpServletRequest request) {
+
+		nombre = request.getUserPrincipal().getName();
+		usuario = userRepository.findByName(nombre);
+		// Establecer que carrito funciona y trabajar respecto a ello
+		ClienteSocket.enviarSocket(usuario, usuario.getMap());
 		
+		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
+		model.addAttribute("productos",lista);
+		//model.addAttribute("carrito",carrito);
+		model.addAttribute("numPag", 0);
+		model.addAttribute("lista", usuario.getLista());
+		return "catalogo_template";
+	}	
 }
 

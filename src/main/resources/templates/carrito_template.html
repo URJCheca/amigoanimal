@@ -8,11 +8,35 @@
 <body>
 <div class="baseImage">
 	<div class="baseText">
-		<p></p> {{lista}}
+		<p></p> {{#lista}}
+				<ul class="tablaBase">
+				<li>
+				<ul class="tablaBase">
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">Nombre</li>
+						<li class="elementosCorto">Cantidad</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">{{key}}</li>
+						<li class="elementosCorto">{{value}}</li>
+						</ul>
+					</li>
+					<br>
+				</ul>
+			{{/lista}}
 		<p>Precio Total: </p>{{precio}}
 		<form action="crear_carrito">
 			<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
 			<input type="hidden" name="_csrf" value="{{token}}"/>
+		</form>
+		<form action="enviar_carrito">
+			<input type= 'submit' class="baseButton" value='Confirmar comprar'/>
+			<input type="hidden" name="_csrf" value="{{token}}"/>
+		</form>
 	</div>
 </div>
 </body>

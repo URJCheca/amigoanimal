@@ -35,6 +35,7 @@ class CSRFHandlerInterceptor extends HandlerInterceptorAdapter {
 		    	} else {
 			    	modelAndView.addObject("name", auth.getPrincipal());
 			    }
+		    	//Incluir roles cliente y trabajador
 				modelAndView.addObject("admin", request.isUserInRole("ROLE_ADMIN"));
 		    } else {
 		    	modelAndView.addObject("name", "Invitado");

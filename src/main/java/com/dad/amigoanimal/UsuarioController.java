@@ -38,7 +38,7 @@ public class UsuarioController {
 		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com","ROLE_USER");
 		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com","ROLE_USER");
 		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com","ROLE_USER");
-		Trabajador trabajador =new Trabajador("Jose","jose","jose123","11111111f","jose@gmail.com","ROLE_ADMIN");
+		//Trabajador trabajador =new Trabajador("Jose","jose","jose123","11111111f","jose@gmail.com","ROLE_ADMIN");
 		
 		
 		Mascota mascota1=new Mascota("Congo","Loro","Yaco","Gris");

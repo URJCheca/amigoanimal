@@ -3,6 +3,8 @@ package com.dad.amigoanimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,6 @@ public class Cliente extends Usuario {
 	//private  HashMap<String, Integer> carritoS; 
 	private int puntos=0;
 	private int preciototal;
-	private String lista;
 	private boolean encontrado;
 	public Cliente() {
 		super();
@@ -134,10 +135,15 @@ public class Cliente extends Usuario {
 		return preciototal;
 	}
 	
-	public String getLista() {
-		lista = "";
-		carrito.forEach((k,v) -> lista += (v + " de " + k.getName() + ""));
+	public List<Entry<Producto, Integer>> getLista() {
+		List <Entry<Producto,Integer>>lista = new ArrayList();
+		Set<Entry<Producto, Integer>> contenido = carrito.entrySet();
+		for(Entry<Producto,Integer> entrada:contenido) {
+			lista.add(entrada);
+		} 
 		return lista;
+//		carrito.forEach((k,v) -> lista += (v + " de " + k.getName() + ""));
+//		return lista;
 	}
 
 	
