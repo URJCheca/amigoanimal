@@ -22,17 +22,12 @@ public class ClienteSocket {
 		String confirmacion= "FAIL";
 		try {
 			Socket socket= new Socket("127.0.0.1",port);
-			System.out.println("Me cago en tus muertos 1");
-			OutputStream os = socket.getOutputStream();
-			System.out.println("Me cago en tus muertos 2");
-			ObjectOutputStream oos= new ObjectOutputStream (os);
-			System.out.println("Me cago en tus muertos 3");
-			InputStream is =  socket.getInputStream();
-			System.out.println("Me cago en tus muertos 4");
 
-			System.out.println("Me cago en tus muertos 5");
-			System.out.println("Me cago en tus muertos 6");
-			oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
+			OutputStream os = socket.getOutputStream();
+		
+			ObjectOutputStream oos= new ObjectOutputStream (os);
+			
+			//oos.writeObject(new Producto("Catzilla", 14, "Comida para gatos de alta calidad. Sabor pollo y verduras", "Alimentacion", 30));
 			oos.writeObject(usuario.getEmail());
 			oos.writeObject(carrito);
 			oos.flush();

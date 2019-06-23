@@ -25,7 +25,7 @@ public class Cliente extends Usuario {
 	protected List<Clinica> clinica;
 	/*@ManyToOne
 	private Clinica clinica;*/
-	private static HashMap<Producto, Integer> carrito; 
+	private static HashMap<Long, Integer> carrito; 
 	//private  HashMap<String, Integer> carritoS; 
 	private int puntos=0;
 	private int preciototal;
@@ -38,7 +38,7 @@ public class Cliente extends Usuario {
 		super(login,name,contrasena,document,email,rol);
 		mascotas= new ArrayList<Mascota>();
 		clinica= new ArrayList<Clinica>();
-		carrito = new  HashMap<Producto, Integer>();
+		carrito = new  HashMap<Long, Integer>();
 		
 	}
 	
@@ -55,69 +55,45 @@ public class Cliente extends Usuario {
 	}
 	
 	
-	public HashMap<Producto, Integer> addProducto2(Producto producto, int quantity, HashMap<Producto,Integer> carro) {
-		System.out.println("x" + carrito.size());
-		encontrado = false;
-		carro.forEach((k,v) -> {
-			//System.out.println(k.getName() + " " + producto.getName());
-			if (k.equals(producto)){
-				System.out.println("++++" + carro.size());
-				carro.put(k, v + quantity);
-				System.out.println("+++++" + carro.size());
-				encontrado=true;
-			}
-		});
-		if (!encontrado) {
-			//System.out.println(this.getLista());
-			System.out.println("++++" + carro.size());
-			carro.put(producto, quantity);
-			System.out.println("+++++" + carro.size());
+	public void addProducto2(Long id, int quantity) {
+		if (carrito.containsKey(id)) {
+			carrito.put(id, carrito.get(id) + quantity);
+		}else {
+			carrito.put(id, quantity);
 		}
-		System.out.println("++++++" + carro.size());
-		return carro;
+		
+	
 		/*System.out.println("añadido");
 		System.out.println(carrito.size());
 		System.out.println(this.getLista());*/
 	}
 	
-	public void setMap(HashMap<Producto, Integer> carro) {
+	public void setMap(HashMap<Long, Integer> carro) {
 		System.out.println("--" + carro.size());
 		System.out.println("---" + carrito.size());
 		this.carrito = carro;
 		System.out.println("----" + carrito.size());
 	}
 	
-	public HashMap<Producto, Integer> getMap(){
+	public HashMap<Long, Integer> getMap(){
 		System.out.println("-" + carrito.size());
 		return this.carrito;
 	}
 	
-	public void addProducto(Producto producto, int quantity) {
-		encontrado = false;
-
-		carrito.forEach((k,v) -> {
-			//System.out.println(k.getName() + " " + producto.getName());
-			if (k.equals(producto)){
-				System.out.println(carrito.size());
-				carrito.put(k, v + quantity);
-				System.out.println(carrito.size());
-				encontrado=true;
-			}
-		});
-		if (!encontrado) {
-			System.out.println(this.getLista());
-			carrito.put(producto, quantity);
+	public void addProducto(Long id, int quantity) {
+		if (carrito.containsKey(id)) {
+			carrito.put(id, carrito.get(id) + quantity);
+		}else {
+			carrito.put(id, quantity);
 		}
-		/*System.out.println("añadido");
-		System.out.println(carrito.size());
-		System.out.println(this.getLista());*/
 	}
 	
-	public void removeProducto(Producto producto, int quantity) {
-		if (carrito.containsKey(producto)) {
-			carrito.put(producto, carrito.get(producto) - quantity);
-			if (carrito.get(producto)<=0)
-				carrito.remove(producto);
+	public void removeProducto(Long id, int quantity) {
+		System.out.println(id);
+		if (carrito.containsKey(id)) {
+			carrito.put(id, carrito.get(id) - quantity);
+			if (carrito.get(id)<=0)
+				carrito.remove(id);
 		}
 	}
 	
@@ -128,23 +104,23 @@ public class Cliente extends Usuario {
 		return carrito.get(producto);
 	}
 	
-	public float getPrecioTotal() {
+	/*public float getPrecioTotal() {
 		preciototal = 0;
 		//carrito.forEach((k,v) -> System.out.println("Producto: "+k+" cantidad:"+v));
 		carrito.forEach((k,v) -> preciototal += k.getPrice() * v);
 		return preciototal;
 	}
 	
-	public List<Entry<Producto, Integer>> getLista() {
-		List <Entry<Producto,Integer>>lista = new ArrayList();
-		Set<Entry<Producto, Integer>> contenido = carrito.entrySet();
-		for(Entry<Producto,Integer> entrada:contenido) {
-			lista.add(entrada);
+	public List<ObjetoCarrito> getLista() {
+		List <ObjetoCarrito>lista = new ArrayList();
+		Set<Entry<Long, Integer>> contenido = carrito.entrySet();
+		for(Entry<Long, Integer> entrada:contenido) {
+			lista.add(new ObjetoCarrito(entrada.getKey().,entrada.getKey().getName(),entrada.getValue()));
 		} 
 		return lista;
 //		carrito.forEach((k,v) -> lista += (v + " de " + k.getName() + ""));
 //		return lista;
-	}
+	}*/
 
 	
 }

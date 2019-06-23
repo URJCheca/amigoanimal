@@ -7,26 +7,31 @@
 </head>
 <body>
 <div class="baseImage">
-	<div class="baseText">
-		<p></p> {{#lista}}
-				<ul class="tablaBase">
+	<div class="registroText">
+		{{#lista}}
+			<ul class="tablaBase">
 				<li>
-				<ul class="tablaBase">
+					<ul class="tablaBase">
 					<li>
-						<ul class="tablaInt">
+					<ul class="tablaInt">
 						<li class="elementosBase">Nombre</li>
 						<li class="elementosCorto">Cantidad</li>
-						</ul>
+					</ul>
 					</li>
 					<br>
 					<li>
-						<ul class="tablaInt">
-						<li class="elementosBase">{{key}}</li>
-						<li class="elementosCorto">{{value}}</li>
-						</ul>
+					<ul class="tablaInt">
+						<li class="elementosBase">{{nombreProducto}}</li>
+						<li class="elementosCorto">{{cantidad}}</li>
+					</ul>
 					</li>
 					<br>
-				</ul>
+					</ul>
+					<form action="eliminar_carrito">
+						<input type="hidden" name= id value={{id}} readonly/>
+						<input type="number" name= "quantity" value="1"/>
+						<input type="submit" class="catalogoButton" value="Eliminar del carrito"> 
+					</form>
 			{{/lista}}
 		<p>Precio Total: </p>{{precio}}
 		<form action="crear_carrito">

@@ -1,5 +1,6 @@
 package com.dad.amigoanimal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ProductoController {
 	int numElem= 3;
 	String nombre;
 	Cliente usuario;
-	private /*static*/ HashMap<Producto, Integer> carrete;
+	private HashMap<Long, Integer> carrete;
 	
 	@PostConstruct
 	public void init() {
@@ -84,36 +85,63 @@ public class ProductoController {
 		*/
 		nombre = request.getUserPrincipal().getName();
 		usuario = userRepository.findByName(nombre);
-		model.addAttribute("lista", usuario.getLista());
-		model.addAttribute("precio", usuario.getPrecioTotal());
+		
+		model.addAttribute("lista", listar(usuario));
+		model.addAttribute("precio", precioTotal(usuario));
 		
 		return "carrito_template";
 		
+	}
+	private List<ObjetoCarrito> listar(Cliente usuario) {
+		List <ObjetoCarrito>lista = new ArrayList();
+		Set<Entry<Long, Integer>> contenido = usuario.getMap().entrySet();
+		for(Entry<Long,Integer> entrada:contenido) {
+			lista.add(new ObjetoCarrito(entrada.getKey(),productoRepositorio.findById(entrada.getKey()).get().getName(),entrada.getValue()));
+		}
+		return lista;
+	}
+	private int precioTotal(Cliente usuario) {
+		int resultado= 0;
+		Set<Entry<Long, Integer>> contenido = usuario.getMap().entrySet();
+		for(Entry<Long,Integer> entrada:contenido) {
+			resultado+= productoRepositorio.findById(entrada.getKey()).get().getPrice()*entrada.getValue();
+		}
+		return resultado;
 	}
 	@RequestMapping ("/aniadir_carrito")
 	public String aniadirCarrito (Model model, String id, int quantity, /*Carrito carrito,*/ HttpServletRequest request) {
 
 		long longID=Long.parseLong(id);
-		Optional<Producto> optional=productoRepositorio.findById(longID);
-		Producto producto= optional.get();
 		nombre = request.getUserPrincipal().getName();
 		usuario = userRepository.findByName(nombre);
 		carrete = usuario.getMap();
 		System.out.println("+" + carrete.size());
-		carrete = usuario.addProducto2(producto, quantity, carrete);
-		System.out.println("++" + carrete.size());
-		usuario.setMap(carrete);
-		System.out.println("+++" + usuario.getMap().size());
+		usuario.addProducto2(longID, quantity);
+		
 		//carrito.addProducto(producto, quantity);
 		//System.out.println("Se añadio con exito "+producto.getName()+" "+ carrito.esta(producto)+ " "+carrito.getQuantity(producto)+" "+carrito.getPrecioTotal() );
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
 		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);
-		model.addAttribute("lista", usuario.getLista());
+		//model.addAttribute("lista", listar(usuario));
 		return "catalogo_template";
 	}
 	
+	@RequestMapping ("/eliminar_carrito")
+	public String eliminarCarrito (Model model, String id, int quantity, HttpServletRequest request) {
+		long longID=Long.parseLong(id);
+		nombre = request.getUserPrincipal().getName();
+		usuario = userRepository.findByName(nombre);
+		Producto producto=productoRepositorio.findById(longID).get();
+		// Establecer que carrito funciona y trabajar respecto a ello
+		usuario.removeProducto(longID, quantity);
+		
+		model.addAttribute("lista",listar(usuario));
+		model.addAttribute("precio", precioTotal(usuario));
+		
+		return "carrito_template";
+	}
 
 	@GetMapping ("/busqueda_avanzada_producto")
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String tipo,@RequestParam int precio,@RequestParam int numPag) {
@@ -142,8 +170,7 @@ public class ProductoController {
 		 	funcion+=4; 
 		  
 		  switch (funcion){
-		  	/*default: lista=mascotaRepositorio.findAll(pagerequest);
-		  			break;*/
+
 		  	case 1: lista = productoRepositorio.findByName(nombre, pagerequest);
 		  			break;
 		  	case 2: lista = productoRepositorio.findByCategory(tipo, pagerequest);
@@ -162,50 +189,13 @@ public class ProductoController {
   			
 		  	}
 		  
-		/*if (precio==0) {
-			
-			if (tipo.equals("All")) {
-				if(nombre.equals("")) {
-					lista=productoRepositorio.findAll(new PageRequest(numPag, numElem));
-				
-				}else {
-					lista=productoRepositorio.findByName(nombre,new PageRequest(numPag, numElem));
-					
-				}
-			}else {
-				if(nombre.equals("")) {
-					lista=productoRepositorio.findByCategory(tipo,new PageRequest(numPag, numElem));
-				
-				}else {
-					lista=productoRepositorio.findByNameAndCategory(nombre,tipo,new PageRequest(numPag, numElem));
-				
-				}
-			}
-		}else {
-			System.out.println("precio no 0");
-			int precioaux=precio+1;
-			if (tipo.equals("All")) {
-				if(nombre.equals("")) {
-					System.out.println("buscando");
-					lista=productoRepositorio.findByPriceBetween(0,precioaux,new PageRequest(numPag, numElem));
-				}else {
-					lista=productoRepositorio.findByNameAndPriceBetween(nombre,0,precioaux,new PageRequest(numPag, numElem));
-				}
-			}else {
-				if(nombre.equals("")) {
-					lista=productoRepositorio.findByCategoryAndPriceBetween(tipo,0,precioaux,new PageRequest(numPag, numElem));
-				}else {
-					lista=productoRepositorio.findByNameAndCategoryAndPriceBetween(nombre,tipo,0,precioaux,new PageRequest(numPag, numElem));
-				}
-			}
-		}*/
+		
 		
 		model.addAttribute("nombre",nombre);
 		model.addAttribute("tipo", tipo);
 		model.addAttribute("precio",precio);
 		model.addAttribute("productos",lista);
 		model.addAttribute("numPag", sigPag);
-		//model.addAttribute("carrito",carrito);
 		return "catalogobusqueda_template";
 	}
 	
@@ -276,18 +266,23 @@ public class ProductoController {
 			
 	@RequestMapping ("/enviar_carrito")
 	public String enviarCarrito (Model model, /*Carrito carrito,*/ HttpServletRequest request) {
-
+		HashMap<Producto,Integer>envio = new HashMap<Producto,Integer>();
 		nombre = request.getUserPrincipal().getName();
 		usuario = userRepository.findByName(nombre);
+		Set<Entry<Long, Integer>> contenido = usuario.getMap().entrySet();
+		for(Entry<Long,Integer> entrada:contenido) {
+			envio.put(productoRepositorio.findById(entrada.getKey()).get(),entrada.getValue());
+		}
 		// Establecer que carrito funciona y trabajar respecto a ello
-		ClienteSocket.enviarSocket(usuario, usuario.getMap());
+		ClienteSocket.enviarSocket(usuario, envio);
 		
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
 		//model.addAttribute("carrito",carrito);
 		model.addAttribute("numPag", 0);
-		model.addAttribute("lista", usuario.getLista());
+		//model.addAttribute("lista", usuario.getLista());
 		return "catalogo_template";
-	}	
+	}
+	
 }
 
