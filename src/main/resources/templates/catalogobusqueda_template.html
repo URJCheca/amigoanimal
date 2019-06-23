@@ -34,11 +34,14 @@
 					</li>
 					<br>
 				</ul>
+					{{#user}}
 					<form action="aniadir_carrito">
 						<input type="hidden" name= id value={{id}} readonly/>
 						<input type="number" name= "quantity" value="1"/>
 						<input type="submit" class="catalogoButton" value="Aniadir al carrito"> 
 					</form>
+					{{/user}}
+					{{#admin}}
 					<form action="modificar_producto">
 						<input type="hidden" name= id value={{id}} readonly/>
 						<input type="submit" cl1111111ass="catalogoButton" value="Modificar"> 
@@ -47,6 +50,7 @@
 						<input type="hidden" name= id value={{id}} readonly/>
 					<input type= 'submit' class="catalogoButton" value='Borrar'/>
 					</form>
+					{{/admin}}
 					</li>
 				</ul>
 			{{/productos}}
@@ -67,9 +71,7 @@
 				<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
 				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
-			<!--  {{#trabajador}}-->
 			
-			<!-- {{/trabajador}}-->
 	</div>
 </div>
 </body>

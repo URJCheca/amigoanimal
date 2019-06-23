@@ -7,13 +7,13 @@ import javax.transaction.Transactional;
 
 	
 @Transactional
-public interface ClienteRepository extends UserBaseRepository {
-	Optional<Cliente> findByName (String name);
+public interface TrabajadorRepository extends UserBaseRepository {
+	Optional<Trabajador> findByName (String name);
 	//Optional<Cliente> findById(Long id);
-	Optional<Cliente> findByLogin(String login);
+	Optional<Trabajador> findByLogin(String login);
 	//List<Cliente> findByName(String name);
 	//List<Cliente> findByContrasena(String contrasena);
 	//Cliente findByDocument (String document);
-	List<Cliente> findByClinica (Clinica clinica);
+	List<Trabajador> findByClinica (Clinica clinica);
 	//List<Cliente> findByEmail (String email);
 }

@@ -21,8 +21,8 @@ public class Clinica {
 	
 	@ManyToMany(mappedBy="clinica")
 	private List <Cliente>  clientes;
-	/*@OneToMany(mappedBy="clinica")
-	private List <Trabajador>  trabajadores;*/
+	@OneToMany(mappedBy="clinica")
+	private List <Trabajador>  trabajadores;
 	@ManyToMany(mappedBy="clinica")
 	private List<Mascota> mascotas;
 		

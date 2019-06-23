@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<link type="text/css" rel="stylesheet" href="css/cssBase.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="baseImage">
+	<div class="registroText">
+
+			<ul class="tablaBase">
+				<li>
+				<ul class="tablaBase">
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">Nombre</li>
+						<li class="elementosLargo">Documento</li>
+						<li class="elementosCorto">Nombre</li>
+						<li class="elementosLargo">Email</li>
+						<li class="elementosCorto">Rol</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">{{login}}</li>
+						<li class="elementosLargo">{{document}}</li>
+						<li class="elementosCorto">{{nombre}}</li>
+						<li class="elementosLargo">{{email}}</li>
+						<li class="elementosCorto">{{rol}}</li>
+						</ul>
+					</li>
+					<br>
+				</ul>
+					<form action="cambiar_rol">
+						<input type="hidden" name= login value={{login}} readonly/>
+						<input type="submit" class="catalogoButton" value="Cambiar rol"> 
+					</form>
+			
+					<form action="borrar_usuario">
+						<input type="hidden" name= login value={{login}} readonly/>
+					<input type= 'submit' class="catalogoButton" value='Borrar'/>
+					</form>
+					</li>
+				</ul>
+			<form action="greeting">
+				<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
+			</form>
+	
+	</div>
+</div>
+</body>
+</html>

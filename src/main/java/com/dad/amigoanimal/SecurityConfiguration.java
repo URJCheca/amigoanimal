@@ -33,7 +33,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//privado especifico
 		//Paginas de modificacion y borrado de cosas
 		//http.authorizeRequests().antMatchers("/catalogo").hasAnyRole("USER");
-		http.authorizeRequests().anyRequest().hasAnyRole("ADMIN");
+		//http.authorizeRequests().anyRequest().authenticated();
+		http.authorizeRequests().antMatchers("/ver_carrito").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/aniadir_carrito").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/eliminar_carrito").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/enviar_carrito").hasAnyRole("USER");
+		
+		http.authorizeRequests().antMatchers("/clinica").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/alta_producto").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/registrar_producto").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/borrar_producto").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/modificar_producto").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/cambiar_producto").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/administrar").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/cambiar_rol").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/borrar_usuario").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/registro_mascotas").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/busqueda_avanzada_mascota").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/busqueda_mascota").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/registrar_mascota").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/mascota_alta").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/baja_mascota").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/modificar_mascota").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/cambiar_mascota").hasAnyRole("ADMIN");
 		
 		//Privado
 		//http.authorizeRequests().anyRequest().authenticated();

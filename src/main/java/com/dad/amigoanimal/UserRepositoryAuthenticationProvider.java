@@ -4,6 +4,7 @@ import com.dad.amigoanimal.SecurityConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,23 +21,41 @@ import org.springframework.stereotype.Component;
 public class UserRepositoryAuthenticationProvider implements AuthenticationProvider{
 
 	@Autowired
-	private UserBaseRepository usuarioRepositorio;
-
+	private ClienteRepository clienteRepositorio;
+	@Autowired
+	private TrabajadorRepository trabajadorRepositorio;
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		// System.out.println("-- VAMOS A VERIFICAR ESTE USUARIO authentication provider --");
-		Usuario usuario = usuarioRepositorio.findByLogin(authentication.getName());
+		String rol=null;
+		String login=null;
+		String passHash=null;
 		
+		Optional<Cliente> usuarioC = clienteRepositorio.findByLogin(authentication.getName());
+		if (usuarioC.isPresent()) {
+			Cliente cliente= usuarioC.get();
+			rol=cliente.getRol();
+			login=cliente.getLogin();
+			passHash=cliente.getPasswordHash();
+		}else {
+			Optional<Trabajador> usuarioT =  trabajadorRepositorio.findByLogin(authentication.getName());
+			if (usuarioT.isPresent()) {
+			Trabajador trabajador= usuarioT.get();
+			rol=trabajador.getRol();
+			login=trabajador.getLogin();
+			passHash=trabajador.getPasswordHash();
+			}
+		}
 		String password = (String) authentication.getCredentials();
-		if(!new BCryptPasswordEncoder().matches(password, usuario.getPasswordHash())) {
+		if(!new BCryptPasswordEncoder().matches(password, passHash)) {
 			throw new BadCredentialsException("Wrong password");
 		}
 		
 		
-		List<GrantedAuthority> rol = new ArrayList<>();
-		rol.add(new SimpleGrantedAuthority(usuario.getRol()));
+		List<GrantedAuthority> rolList = new ArrayList<>();
+		rolList.add(new SimpleGrantedAuthority(rol));
 		
-		return (Authentication) new UsernamePasswordAuthenticationToken(usuario.getLogin(), password, rol);
+		return (Authentication) new UsernamePasswordAuthenticationToken(login, password, rolList);
 	}
 
 	@Override

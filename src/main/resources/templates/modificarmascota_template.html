@@ -6,25 +6,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="cambiar_mascota">
 <div class="baseImage">
-	<div class="registroText">
+<div class="registroText">
+<form action="cambiar_mascota">
+
+	
 		<input type="hidden" name=id value= {{id}} readonly/>
-		<p>Dueño: </p><input type="text" name=owner value= {{owner}} readonly >
-		<p>Nombre: </p><input type='text' name='name' class="baseButton" value={{name}} >
+		<p>Dueño: </p><input type="text" name=owner class="baseButton"value= {{owner}} readonly >
+		<p>Nombre: </p><input type='text' name='name' class="baseButton" value={{nombre}} >
 		<p>Especie: </p><input type='text' name='especie' class="baseButton" value={{especie}} >
 		<p>Raza: </p><input type='text' name='raza' class="baseButton" value={{raza}} >
 		<p>Color: </p> <input type='text' name='color' class="baseButton" value={{color}} >
 		<p>Registro: </p> <textarea rows="10" cols="40" readonly>{{registro}}</textarea>
 		<p>Nueva entrada: </p><textarea rows="5" cols="40" name='registro' ></textarea>
-		<p>Editor:<input type='text' name='clinica' class="baseButton" /></p>
 		<br>
 	    <input type='submit' class="baseButton"	value='Modificar' />
 	    <input type="hidden" name="_csrf" value="{{token}}"/>
 	
 	    
+	
+
+	</form>
+	<form action=registro_mascotas>
+	<input type="hidden" name=numPag value="0"readonly/>
+			<input type='submit' class="baseButton" value='Volver' />
+			<input type="hidden" name="_csrf" value="{{token}}"/>
+	</form>
 	</div>
 </div> 
-</form>
 </body>
 </html>

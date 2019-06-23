@@ -71,6 +71,9 @@ public class Usuario {
 		this.name = name;
 	}
 	
+	public String getcontrasena() {
+		return contrasena;
+	}
 	public String getRol() {
 		return rol;
 	}

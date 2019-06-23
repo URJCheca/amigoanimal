@@ -38,10 +38,12 @@
 			<input type= 'submit' class="baseButton" value='Volver a pagina principal'/>
 			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
+		{{^vacio}}
 		<form action="enviar_carrito">
 			<input type= 'submit' class="baseButton" value='Confirmar comprar'/>
 			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
+		{{/vacio}}
 	</div>
 </div>
 </body>

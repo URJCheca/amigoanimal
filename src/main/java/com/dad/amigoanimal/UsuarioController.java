@@ -2,6 +2,7 @@ package com.dad.amigoanimal;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -26,65 +27,13 @@ public class UsuarioController {
 	private ClinicaRepository clinicaRepositorio;
 	@Autowired
 	private MascotaRepository mascotaRepositorio;
-	/*@Autowired
-	private UserBaseRepository usuarioRepositorio;
-	*/
-	//@Autowired
-	//private UserSesion userSesion;
+	@Autowired
+	private TrabajadorRepository trabajadorRepositorio;
 	
 	@PostConstruct
 	public void init() {
 		
-		Cliente cliente1 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com","ROLE_USER");
-		Cliente cliente2 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com","ROLE_USER");
-		Cliente cliente3 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com","ROLE_USER");
-		//Trabajador trabajador =new Trabajador("Jose","jose","jose123","11111111f","jose@gmail.com","ROLE_ADMIN");
 		
-		
-		Mascota mascota1=new Mascota("Congo","Loro","Yaco","Gris");
-		Mascota mascota2=new Mascota("Fluffy","perro","labrador","canela");
-		Mascota mascota3=new Mascota("Miaustache","gato","persa","gris");
-		Mascota mascota4=new Mascota("Calcetines","gato","europeo","negro");
-		
-		Clinica clinica1 = new Clinica("Las Aguilas",3);
-		
-		
-		cliente1.setClinica(clinica1);
-		cliente2.setClinica(clinica1);
-		cliente3.setClinica(clinica1);
-		
-		clinicaRepositorio.save(clinica1);
-		
-		clienteRepositorio.save(cliente1);
-		clienteRepositorio.save(cliente2);
-		clienteRepositorio.save(cliente3);
-		
-		
-		
-		mascota1.setUsuario(cliente1);
-		mascota2.setUsuario(cliente2);
-		mascota3.setUsuario(cliente2);
-		mascota4.setUsuario(cliente3);
-		
-		mascota1.setClinica(clinica1);
-		mascota2.setClinica(clinica1);
-		mascota3.setClinica(clinica1);
-		mascota4.setClinica(clinica1);
-		
-		/*cliente1.addMascota(mascota1);;
-		cliente2.addMascota(mascota2);
-		cliente3.addMascota(mascota3);
-		cliente3.addMascota(mascota4);*/
-				
-		
-		mascotaRepositorio.save(mascota1);
-		mascotaRepositorio.save(mascota2);
-		mascotaRepositorio.save(mascota3);
-		mascotaRepositorio.save(mascota4);
-		/*Usuario user = new Usuario("123","123","123123","123123123","123@gmail.com",3);		
-		
-		user.setClinica(clinicaRepositorio.findByName("Las Aguilas").get(0));
-		usuarioRepositorio.save(user);*/
 			
 	}
 	
@@ -114,48 +63,13 @@ public class UsuarioController {
 		return "greeting_template";
 	}
 		
-	/*@GetMapping("/user_login")
-	public String logearUsuario(Model model, @RequestParam String nombre, @RequestParam String contrasena) {
-		
-		List<Cliente> user;
-		user = clienteRepositorio.findByName(nombre);
-		
-		if (user.size()>0) {
-			if (user.get(0).getContrasena().equals(contrasena)) {
-				System.out.println("Logeado con exito: " + nombre);
-				return "greeting_template";
-			} /*else {
-				System.out.println("Contraseña equivocada");
-			}
-		}
-		
-		return "signin_template";
-	}*/
 	
 	@RequestMapping("/signup")
 	public String registerController (Model model) {
 		return "signup_template";
 	}
 	
-	/*@GetMapping("/registrar_user")
-	public String  RegistrarUsuario(Model model, @RequestParam String login, @RequestParam String contrasena, @RequestParam String contrasena2, @RequestParam String email) {
-		Boolean coincideLogin=clienteRepositorio.findByLogin(login).isPresent();
-		System.out.println("llego aqui");
-		if(!coincideLogin) {
-			System.out.println("llego aqui???");
-			if (contrasena.equals(contrasena2)) {
-				model.addAttribute("login", login);
-				model.addAttribute("contrasena", contrasena);
-				model.addAttribute("email", email);
-				return "verifysingup_template";
-			}
-				model.addAttribute("error", true);
-				return "signup_template";	
-		}
-		model.addAttribute("usado", true);
-		return "signup_template";	
-	}
-	*/
+	
 	
 	@GetMapping("/continuacion_registro")
 	public String  ContinuacionRegistro(Model model, @RequestParam String login,@RequestParam String nombre, @RequestParam String contrasena, @RequestParam String email,@RequestParam String documento) {
@@ -163,9 +77,82 @@ public class UsuarioController {
 			Cliente usuario_nuevo = new Cliente(login,nombre, contrasena, documento, email, "ROLE_USER"); 
 			clienteRepositorio.save(usuario_nuevo);
 			System.out.println("Registrado con exito: " + nombre);
-			return "greeting_template";
+			model.addAttribute("usuario", true);
+			return "registroexitoso_template";
 		
 		
+	}
+	@GetMapping("/administrar")
+	public String  Administrar(Model model) {
+		return "busquedausuario_template";
+	}
+	
+	@GetMapping("/busqueda_usuario")
+	public String  BusquedaUsuario(Model model, @RequestParam String login) {
+			 Optional<Cliente> optionalC=  clienteRepositorio.findByLogin(login);
+			if (optionalC.isPresent()) {
+				Cliente cliente = (Cliente) optionalC.get();
+				model.addAttribute("login", cliente.getLogin());
+				model.addAttribute("document", cliente.getDocument());
+				model.addAttribute("nombre", cliente.getName());
+				model.addAttribute("email", cliente.getEmail());
+				model.addAttribute("rol", "Cliente");
+			return "resultadousuario_template";
+			}
+			Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
+				if (optionalT.isPresent()) {
+					Trabajador trabajador = (Trabajador) optionalT.get();
+					model.addAttribute("login", trabajador.getLogin());
+					model.addAttribute("document", trabajador.getDocument());
+					model.addAttribute("nombre", trabajador.getName());
+					model.addAttribute("email", trabajador.getEmail());
+					model.addAttribute("rol", "Trabajador");
+					return "resultadousuario_template";
+			}
+			model.addAttribute("fail",true)	;
+			return "busquedausuario_template";
+		
+		
+	}
+	
+	@GetMapping("/cambiar_rol")
+	public String  CambiarRol(Model model, @RequestParam String login) {
+			 Optional<Cliente> optionalC=  clienteRepositorio.findByLogin(login);
+			if (optionalC.isPresent()) {
+				Cliente cliente = (Cliente) optionalC.get();
+				Trabajador trabajador = new Trabajador(cliente.getLogin(), cliente.getName(), cliente.getcontrasena(), cliente.getDocument(),cliente.getEmail(), "ROLE_ADMIN");
+				trabajadorRepositorio.save(trabajador);
+				clienteRepositorio.delete(cliente);
+			}else {
+				Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
+				if (optionalT.isPresent()) {
+					Trabajador trabajador = (Trabajador) optionalT.get();
+					Cliente cliente = new Cliente(trabajador.getLogin(), trabajador.getName(), trabajador.getcontrasena(), trabajador.getDocument(),trabajador.getEmail(), "ROLE_USER");
+					clienteRepositorio.save(cliente);
+					trabajadorRepositorio.delete(trabajador);
+				}
+			}
+			model.addAttribute("usuario",true);
+			return "cambioexitoso_template";
+		
+		
+	}
+	
+	@GetMapping("/borrar_usuario")
+	public String  BorrarUsuario(Model model, @RequestParam String login) {
+			 Optional<Cliente> optionalC=  clienteRepositorio.findByLogin(login);
+			if (optionalC.isPresent()) {
+				Cliente cliente = (Cliente) optionalC.get();
+				clienteRepositorio.delete(cliente);
+			}else {
+				Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
+				if (optionalT.isPresent()) {
+					Trabajador trabajador = (Trabajador) optionalT.get();
+					trabajadorRepositorio.delete(trabajador);
+				}
+			}
+			model.addAttribute("usuario", true);
+			return "borradoexitoso_template";	
 	}
 	
 	

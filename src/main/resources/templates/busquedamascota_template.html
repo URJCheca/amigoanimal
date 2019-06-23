@@ -6,8 +6,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 <div class="baseImage">
 	<div class="registroText">
+	{{#clerror}}
+	La clinica introducida no existe
+	{{/clerror}}
+	{{#userror}}
+	El usuario introducido no existe
+	{{/userror}}
 		<form action="busqueda_avanzada_mascota">
 				<p>Nombre :</p><input type='text' name='nombre' />
 				<br>
@@ -19,7 +27,7 @@
 				<br>
 				
 				<input type="hidden" name="numPag" value="0"/>
-				<input type='submit' class="baseButton" value='Enviar' />
+				<input type='submit' class="baseButton" value='Buscar' />
 				<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 	</div>

@@ -12,20 +12,29 @@
 	<img class="imgLogo" src="/images/logo.png">
 	<div class="baseText">
 		<p>{{name}}
+		
 		Bienvenido a Amigo Animal</p>
+		{{^admin}}
+		{{^user}}
 		<form action="signin"><input type="submit" class="baseButton" value='Iniciar Sesion' />
 		<input type="hidden" name="_csrf" value="{{token}}"/></form>
 		<form action="signup"><input type="submit" class="baseButton" value='Registrarse' />
 		<input type="hidden" name="_csrf" value="{{token}}"/></form>
+		{{/user}}
+		{{/admin}}
 		<form action="crear_carrito"><input type="submit" class="baseButton" value='Tienda' />
 		<input type="hidden" name="_csrf" value="{{token}}"/></form>
 		{{#admin}}
+			<form action="administrar"><input type="submit" class="baseButton" value='Administrar Usuarios' />
+		<input type="hidden" name="_csrf" value="{{token}}"/></form>
 		<form action="clinica"><input type="submit" class="baseButton" value='Clinica Veterinaria' />
 		<input type="hidden" name="_csrf" value="{{token}}"/></form>
 		{{/admin}}
+		{{^anonimo}}
+
 		<form action="/logout"><input type="submit" class="baseButton" value='Logout' />
 		<input type="hidden" name="_csrf" value="{{token}}"/></form>
-		
+		{{/anonimo}}
 	</div>
 </div>
 </body>

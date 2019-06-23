@@ -28,8 +28,7 @@ public class Cliente extends Usuario {
 	private static HashMap<Long, Integer> carrito; 
 	//private  HashMap<String, Integer> carritoS; 
 	private int puntos=0;
-	private int preciototal;
-	private boolean encontrado;
+
 	public Cliente() {
 		super();
 	}

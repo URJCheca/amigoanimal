@@ -1,13 +1,14 @@
 package com.dad.amigoanimal;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClinicaRepository extends JpaRepository <Clinica, Long>{
 
 	List<Clinica> findAll();
-	Clinica findByName(String name);
+	Optional<Clinica> findByName(String name);
 	
 	
 /*	public default void saveCliente (Usuario cliente) {

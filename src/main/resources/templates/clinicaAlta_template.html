@@ -8,6 +8,9 @@
 <body>
 <div class="baseImage">
 	<div class="registroText">
+	{{#fail}}
+		No existe registrado el usuario
+	{{/fail}}
 		<form action="mascota_alta">
 				<p>Documento del Propietario :</p><input type='text' name='ownerDoc' />
 				<p>Nombre :</p><input type="text" name='name' />
@@ -18,6 +21,11 @@
 				<br>
 				<input type='submit' class="baseButton" value='Dar de alta' />
 				<input type="hidden" name="_csrf" value="{{token}}"/>
+				
+		</form>
+		<form action=clinica>
+			<input type='submit' class="baseButton" value='Volver' />
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 		</form>
 	</div>
 </div>

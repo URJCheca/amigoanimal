@@ -9,12 +9,12 @@
 <div class="baseImage">
 	<div class="registroText">
 		<form action="registrar_producto">
-				<p>Nombre :<input type='text' name='name' /></p>
-				<p>Precio :<input type='number' name='price' /></p>
-				<p>Tipo :<input type='text' name='categoty' /></p>
+				<p>Nombre :<input type='text' name='nombre'value="Nombre" /></p>
+				<p>Precio :<input type='number' name='precio' value=1 /></p>
+				<p>Tipo :<input type='text' name='tipo' value="Tipo"/></p>
 				<p>Descripcion :</p>
-				<textarea rows='4' cols='50' name='descripcion'></textarea>
-				<p>Stock:</p> <input type='number' name='stock'>
+				<textarea rows='4' cols='50' name='descripcion'>Descripcion...</textarea>
+				<p>Stock:</p> <input type='number' name='stock'value=1>
 			    <input type='submit' class="baseButton" value='Registrar' />
 			    <input type="hidden" name="_csrf" value="{{token}}"/>
 			    {{#error}}

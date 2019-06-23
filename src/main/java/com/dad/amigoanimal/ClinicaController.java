@@ -2,6 +2,8 @@ package com.dad.amigoanimal;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,8 @@ public class ClinicaController {
 	private ClinicaRepository clinicaRepositorio;
 	@Autowired
 	private MascotaRepository mascotaRepositorio;
+	@Autowired
+	private TrabajadorRepository trabajadorRepository;
 	
 	int numElem= 2;
 	
@@ -49,11 +53,13 @@ public class ClinicaController {
 	public String BusquedaAvanzada (Model model,@RequestParam String nombre,@RequestParam String document,@RequestParam String clinica,@RequestParam String especie,@RequestParam int numPag) {
 		Page<Mascota> lista;
 		int sigPag= numPag+1;
-		Cliente usuario;
-		Clinica clinic;
+		Optional<Cliente> optionalu;
+		Optional<Clinica> optionalc;
+		Clinica clinic=null;
+		Cliente usuario=null;
 
-		clinic=clinicaRepositorio.findByName(clinica);
-		usuario= (Cliente) usuarioRepositorio.findByDocument(document);
+		optionalc=clinicaRepositorio.findByName(clinica);
+		optionalu=  usuarioRepositorio.findByDocument(document);
 		PageRequest pagerequest=new PageRequest(numPag, numElem);
 		
 	//Da un valor aa los parametros. Suma los valores si tienen contenido y accede al caso que le corresponda
@@ -61,18 +67,22 @@ public class ClinicaController {
 		
 		if (!clinica.equals("")) { 
 			funcion+=1;
-			if (clinic==null) {
+			if (!optionalc.isPresent()) {
 				model.addAttribute("clerror", true);
 				return "busquedamascota_template";
 			}
+			clinic=optionalc.get();
+			
 		}
 		
 		if (!document.equals("")) {
 		  	funcion+=2;
-		  	if (usuario==null) {
+		  	if (!optionalu.isPresent()) {
 				model.addAttribute("userror", true);
 				return "busquedamascota_template";
 			}
+		  	usuario=optionalu.get();
+		  	
 		}
 		
 		if(!especie.equals(""))
@@ -139,29 +149,29 @@ public class ClinicaController {
 	}
 	
 	@GetMapping ("/mascota_alta")
-	public String altaMascota(Model model, @RequestParam String ownerDoc, @RequestParam String name, @RequestParam String especie, @RequestParam String raza, @RequestParam String color) {
-	
-		Cliente user;
+	public String altaMascota(Model model, @RequestParam String ownerDoc, @RequestParam String name, @RequestParam String especie, @RequestParam String raza, @RequestParam String color,HttpServletRequest request) {
 
-		user = (Cliente) usuarioRepositorio.findByDocument(ownerDoc);
-
-		if (user!=null) {
-			System.out.println ("entro al if");
+		Optional<Cliente> user =  usuarioRepositorio.findByDocument(ownerDoc);
+		
+		if (user.isPresent()) {
+			Cliente cliente= user.get();
 			Mascota mascotaNueva = new Mascota(name, especie, raza, color/*,clinicaRepositorio.findByName("Las Aguilas").get(0)*/);
-			mascotaNueva.setUsuario(user);
+			mascotaNueva.setUsuario(cliente);
 			//ver por que esto
-			if (user.getClinica() != null) {
+			if (cliente.getClinica() != null) {
 				System.out.println("Existe clinica del usuario");
-				mascotaNueva.setClinica(user.getClinica().get(0));
+				mascotaNueva.setClinica(cliente.getClinica().get(0));
 			} else {
-				mascotaNueva.setClinica(clinicaRepositorio.findByName("Las Aguilas")); 
+				String nombre = request.getUserPrincipal().getName();
+				Trabajador trabajador = trabajadorRepository.findByName(nombre).get();
+				mascotaNueva.setClinica(trabajador.getClinica()); 
 				}
 			mascotaRepositorio.save(mascotaNueva);
 			model.addAttribute("mascota", true);
 		
 			return "registroexitoso_template";
 		}
-		System.out.println("No se encuentra el dueño");
+		model.addAttribute("fail", true);
 		return "clinicaAlta_template";
 	}
 	
@@ -184,7 +194,7 @@ public class ClinicaController {
 		Optional<Mascota> optional=mascotaRepositorio.findById(longID);
 		Mascota mascota= optional.get();
 		model.addAttribute("id", id);
-		model.addAttribute("name", mascota.getName());
+		model.addAttribute("nombre", mascota.getName());
 		model.addAttribute("especie", mascota.getEspecie());
 		model.addAttribute("raza", mascota.getRaza());
 		model.addAttribute("color", mascota.getColor());
@@ -195,7 +205,7 @@ public class ClinicaController {
 	}
 	@GetMapping("/cambiar_mascota")
 	public String cambiarProducto(Model model, @RequestParam String id,@RequestParam String name,@RequestParam String especie,
-			@RequestParam String raza,@RequestParam String color,@RequestParam String registro,@RequestParam String clinica) {
+			@RequestParam String raza,@RequestParam String color,@RequestParam String registro,HttpServletRequest request) {
 		long longID=Long.parseLong(id);
 		Optional<Mascota> optional=mascotaRepositorio.findById(longID);
 		Mascota mascota= optional.get();
@@ -204,8 +214,10 @@ public class ClinicaController {
 		mascota.setRaza(raza);
 		mascota.setColor(color); 
 		if (!registro.equals("")) {
+			String nombre = request.getUserPrincipal().getName();
+			Trabajador trabajador = trabajadorRepository.findByName(nombre).get();
 			String old_registro = mascota.getRegistro();
-			mascota.setRegistro(old_registro+"["+clinica+"]: "+registro+"\n");
+			mascota.setRegistro(old_registro+"["+trabajador.getClinica().getName()+"]: "+registro+"\n");
 		}
 		mascotaRepositorio.save(mascota);
 		model.addAttribute("mascota", true);

@@ -14,12 +14,12 @@ import com.dad.amigoanimal.Usuario;
 @NoRepositoryBean
 public interface UserBaseRepository<T extends Usuario> extends JpaRepository <Usuario,Long> {
 	
-	Usuario findByName(String name);
+	Optional<Usuario> findByName(String name);
 	//Cliente findByName(String name);
-	Usuario findByLogin(String login);
+	Optional<Usuario> findByLogin(String login);
 	//List<Usuario> findByName(String name/*, Pageable page*/);
 	Page<Usuario> findByContrasena(String contrasena, Pageable page);
-	Usuario findByDocument (String document);
+	Optional<Usuario> findByDocument (String document);
 	//List<Usuario> findByClinica (Clinica clinica/*, Pageable page*/);
 	Page<Usuario> findByEmail (String email, Pageable page);
 }
