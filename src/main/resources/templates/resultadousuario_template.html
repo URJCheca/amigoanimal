@@ -29,9 +29,42 @@
 						<li class="elementosCorto">{{nombre}}</li>
 						<li class="elementosLargo">{{email}}</li>
 						<li class="elementosCorto">{{rol}}</li>
+
 						</ul>
 					</li>
 					<br>
+				</ul>
+				<ul class="tablaBase">
+				<li>
+				<ul class="tablaBase">
+					<li>
+						<ul class="tablaInt">
+						<li class="elementosBase">Clinicas</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+					{{#lista}}
+						<ul class="tablaInt">
+						<form action="borrar_clinica">
+						<li class="elementosBase">{{nombre}}
+						</li>
+						<li class="elementoCorto">
+						<input type=hidden name= nombre value={{nombre}} readonly>
+						<input type="hidden" name= login value={{login}} readonly/>
+						<input type= 'submit' class="catalogoButton" value='Borrar'/>
+						</form>
+						</li>
+						</ul>
+					{{/lista}}
+					</li>
+					<form action="aniadir_clinica">
+						<input type=text name= nombre value=Nombre_Clinica>
+						<input type="hidden" name= login value={{login}} readonly/>
+						<input type="submit" class="catalogoButton" value="Aniadir clinica"> 
+					</form>
+					<br>
+				</ul>
 				</ul>
 					<form action="cambiar_rol">
 						<input type="hidden" name= login value={{login}} readonly/>
@@ -40,8 +73,8 @@
 			
 					<form action="borrar_usuario">
 						<input type="hidden" name= login value={{login}} readonly/>
-					<input type= 'submit' class="catalogoButton" value='Borrar'/>
-					</form>
+					<input type= 'submit' class="catalogoButton" value='Borrar Usuario'/>
+					</form>					
 					</li>
 				</ul>
 			<form action="greeting">

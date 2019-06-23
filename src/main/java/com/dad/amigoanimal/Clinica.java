@@ -16,7 +16,7 @@ public class Clinica {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String name;
+	private String nombre;
 	private int salas;
 	
 	@ManyToMany(mappedBy="clinica")
@@ -53,10 +53,10 @@ public class Clinica {
 		this.salas = salas;
 	}
 	public String getName() {
-		return name;
+		return nombre;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.nombre = name;
 	}
 	
 }

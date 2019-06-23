@@ -36,7 +36,7 @@ public class DatabaseUsersLoader {
 		Mascota mascota3=new Mascota("Miaustache","gato","persa","gris");
 		Mascota mascota4=new Mascota("Calcetines","gato","europeo","negro");
 		
-		Clinica clinica1 = new Clinica("Las Aguilas",3);
+		Clinica clinica1 = new Clinica("Las_Aguilas",3);
 		Clinica clinica2 = new Clinica("Ballesteros",4);
 		
 		cliente1.setClinica(clinica1);

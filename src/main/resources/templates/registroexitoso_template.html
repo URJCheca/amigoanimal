@@ -22,9 +22,9 @@
 		</form>
 		{{/catalogo}}
 		{{#usuario}}
-		<form action="catalogo">
+		<form action="greeting">
 			<input type="hidden" name="numPag" value="0" readonly/>
-				<input type= 'submit' class="baseButton" value='Volver al catalogo'/>
+				<input type= 'submit' class="baseButton" value='Volver a la pagina principal'/>
 				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</form>
 		{{/usuario}}

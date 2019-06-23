@@ -96,7 +96,9 @@ public class UsuarioController {
 				model.addAttribute("document", cliente.getDocument());
 				model.addAttribute("nombre", cliente.getName());
 				model.addAttribute("email", cliente.getEmail());
+				model.addAttribute("lista", cliente.getClinica());
 				model.addAttribute("rol", "Cliente");
+				model.addAttribute("cliente", true);
 			return "resultadousuario_template";
 			}
 			Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
@@ -106,7 +108,9 @@ public class UsuarioController {
 					model.addAttribute("document", trabajador.getDocument());
 					model.addAttribute("nombre", trabajador.getName());
 					model.addAttribute("email", trabajador.getEmail());
+					model.addAttribute("lista", trabajador.getClinica());
 					model.addAttribute("rol", "Trabajador");
+					model.addAttribute("trabajador", true);
 					return "resultadousuario_template";
 			}
 			model.addAttribute("fail",true)	;
@@ -154,6 +158,66 @@ public class UsuarioController {
 			model.addAttribute("usuario", true);
 			return "borradoexitoso_template";	
 	}
+	@GetMapping("/borrar_clinica")
+	public String  BorrarClinica(Model model, @RequestParam String nombre,@RequestParam String login) {
+			Clinica clinica = null;
+			System.out.print(nombre);
+			Optional<Clinica>optionalClinic = clinicaRepositorio.findByNombre(nombre);
+			if (optionalClinic.isPresent()) {
+				clinica=optionalClinic.get();
+			}else {
+
+				return "busquedausuario_template";
+			}
+			Optional<Cliente> optionalC=  clienteRepositorio.findByLogin(login);
+			if (optionalC.isPresent()) {
+				Cliente cliente = (Cliente) optionalC.get();
+				cliente.getClinica().remove(clinica);
+				clienteRepositorio.save(cliente);
+				
+			}else {
+				Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
+				if (optionalT.isPresent()) {
+					Trabajador trabajador = (Trabajador) optionalT.get();
+					trabajador.setClinica(null);
+					trabajadorRepositorio.save(trabajador);
+				}
+			}
+			model.addAttribute("usuario", true);
+			return "borradoexitoso_template";	
+	}
+	@GetMapping("/aniadir_clinica")
+	public String  AddClinica(Model model, @RequestParam String nombre, @RequestParam String login) {
+		Clinica clinica = null;
+		System.out.print(nombre);
+		Optional<Clinica>optionalClinic = clinicaRepositorio.findByNombre(nombre);
+		if (optionalClinic.isPresent()) {
+			clinica=optionalClinic.get();
+		}else {
+
+			return "busquedausuario_template";
+		}
+			Optional<Cliente> optionalC=  clienteRepositorio.findByLogin(login);
+			if (optionalC.isPresent()) {
+				Cliente cliente = (Cliente) optionalC.get();
+				if(! cliente.getClinica().contains(clinica)) {
+					cliente.setClinica(clinica);
+					clienteRepositorio.save(cliente);
+				}
+			}else {
+				Optional<Trabajador>optionalT=  trabajadorRepositorio.findByLogin(login);
+				if (optionalT.isPresent()) {
+					Trabajador trabajador = (Trabajador) optionalT.get();
+					trabajador.setClinica(clinica);
+					trabajadorRepositorio.save(trabajador);
+				}
+			}
+			model.addAttribute("usuario", true);
+			return "registroexitoso_template";	
+	}
+	
+	
+	
 	
 	
 	

@@ -58,7 +58,7 @@ public class ClinicaController {
 		Clinica clinic=null;
 		Cliente usuario=null;
 
-		optionalc=clinicaRepositorio.findByName(clinica);
+		optionalc=clinicaRepositorio.findByNombre(clinica);
 		optionalu=  usuarioRepositorio.findByDocument(document);
 		PageRequest pagerequest=new PageRequest(numPag, numElem);
 		
