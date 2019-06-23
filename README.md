@@ -24,8 +24,12 @@ Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas f
 <img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Registro.JPG"
      alt="Registro de usuarios"
      style="float: left; margin-right: 10px;" />
-### Tienda
-<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Tienda.JPG"
+### TiendaAdmin
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/TiendaAdmin.JPG"
+     alt="Tienda"
+     style="float: left; margin-right: 10px;" />
+### TiendaCliente
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/TiendaCliente.JPG"
      alt="Tienda"
      style="float: left; margin-right: 10px;" />
 ### Alta de productos
@@ -36,18 +40,40 @@ Amigo Animal es una aplicacion que sirve como soporte a una tienda de mascotas f
 <img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Busqueda_avanzada.JPG"
      alt="Busqueda avanzada de productos"
      style="float: left; margin-right: 10px;" />
+### Carrito
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Carrito.JPG"
+     alt="Carrito"
+     style="float: left; margin-right: 10px;" />
+### Confirmacion Compra
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/confirmacionCompra.JPG"
+     alt="Confirmacion compra"
+     style="float: left; margin-right: 10px;" />   
+### Mensaje Enviado
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/MensajeEnviado.JPG"
+     alt="Mensaje Enviado"
+     style="float: left; margin-right: 10px;" />   
 ### Clinica
-<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Clinica.JPG"
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Clinica_nueva.JPG"
      alt="Clinica veterinaria"
      style="float: left; margin-right: 10px;" />
-###Alta de mascotas
+### Alta de mascotas
 <img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Alta%20Mascota.JPG"
      alt="Alta de mascotas"
      style="float: left; margin-right: 10px;" />
-### Baja de mascotas
-<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Baja%20Mascota.JPG"
-     alt="Baja de mascotas"
+### Mascotas registradas
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Registro_mascotas.JPG"
+     alt="Registro de mascotas"
      style="float: left; margin-right: 10px;" />
+### Busqueda Usuario
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/busqueda_usuario.JPG"
+     alt="Busqueda Usuario"
+     style="float: left; margin-right: 10px;" />
+### Resultado Busqueda Usuario
+<img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/resultado_busqueda_usuario.JPG"
+     alt="Resultado de la busqueda de usuario"
+     style="float: left; margin-right: 10px;" />
+
+
      
 ## Diagrama Entidad-Relacion
 <img src="https://github.com/URJCheca/amigoanimal/blob/master/Amigo%20animal/Entidad_relacion_.jpg"
