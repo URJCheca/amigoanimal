@@ -1,0 +1,24 @@
+cd C:\Users\josea\Desktop\cosas ()
+
+docker network create redad
+
+docker pull mysql/mysql-server
+docker run --name=mysql1 --network=redad -d mysql/mysql-server
+docker logs mysql1 2>&1
+docker exec -it mysql1 mysql -uroot -p[password]
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root123';
+	create database mybd;
+	create user 'root'@'%' identified by 'root123';
+	grant all on mybd.* to 'root'@'%';
+[Ctrl+Z]
+
+docker build -f java-servinter-dockerfile -t "servicio" .
+docker run -p 9999:9999 -p 587:587 --name=serviciointerno --network=redad servicio
+[Ctrl+C]
+
+docker build -f java-app-dockerfile -t "web" .
+docker run -p 9001:8443 --name=web1 --network=redad web
+docker run -p 9002:8443 --name=web2 --network=redad web
+
+docker build -f haproxy-dockerfile -t "balanceador" .
+docker run -p 1936:1936 -p 8080:8080 -p 8443:8443 --name=balanceador --network=redad balanceador
