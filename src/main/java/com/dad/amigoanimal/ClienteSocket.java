@@ -21,7 +21,7 @@ public class ClienteSocket {
 		int port= 9999;
 		String confirmacion= "FAIL";
 		try {
-			Socket socket= new Socket("serviciointerno",port);
+			Socket socket= new Socket("127.0.0.1",port);
 
 			OutputStream os = socket.getOutputStream();
 		
