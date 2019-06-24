@@ -71,7 +71,24 @@ public class UsuarioController {
 	public String registerController (Model model) {
 		return "signup_template";
 	}
-	
+	@GetMapping("/registrar_user")
+	public String  RegistrarUsuario(Model model, @RequestParam String login, @RequestParam String contrasena, @RequestParam String contrasena2, @RequestParam String email) {
+		Boolean coincideLogin=clienteRepositorio.findByLogin(login).isPresent();
+		System.out.println("llego aqui");
+		if(!coincideLogin) {
+			System.out.println("llego aqui???");
+			if (contrasena.equals(contrasena2)) {
+				model.addAttribute("login", login);
+				model.addAttribute("contrasena", contrasena);
+				model.addAttribute("email", email);
+				return "verifysingup_template";
+			}
+				model.addAttribute("error", true);
+				return "signup_template";	
+		}
+		model.addAttribute("usado", true);
+		return "signup_template";	
+	}
 	
 	
 	@GetMapping("/continuacion_registro")
