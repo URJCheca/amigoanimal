@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,11 +116,13 @@ public class ProductoController {
 		}else {
 		usuario.addProducto2(longID, quantity);
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getPrincipal() + " añade producto " + productoRepositorio.findById(longID).get().getName() + " al carrito");
+		
 		Page<Producto> lista = productoRepositorio.findAll(new PageRequest(0, numElem));
 		model.addAttribute("productos",lista);
 
 		model.addAttribute("numPag", 0);
-
 		return "catalogo_template";}
 	}
 	

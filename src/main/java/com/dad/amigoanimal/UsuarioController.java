@@ -44,6 +44,8 @@ public class UsuarioController {
 	
 	@GetMapping("/signed")
 	public String logedController (Model model, HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getPrincipal() + " se logea");
 		return "greeting_template";
 	}
 	
@@ -58,6 +60,7 @@ public class UsuarioController {
 	public String cerrarSesion (Model model, HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    if (auth != null){    
+	    	System.out.println(auth.getPrincipal() + " se deslogea");
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
 		return "greeting_template";

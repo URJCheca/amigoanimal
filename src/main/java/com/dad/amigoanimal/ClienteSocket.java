@@ -21,7 +21,7 @@ public class ClienteSocket {
 		int port= 9999;
 		String confirmacion= "FAIL";
 		try {
-			Socket socket= new Socket("127.0.0.1",port);
+			Socket socket= new Socket("serviciointerno",port);
 
 			OutputStream os = socket.getOutputStream();
 		
@@ -32,7 +32,6 @@ public class ClienteSocket {
 			oos.writeObject(carrito);
 			oos.flush();
 			System.out.println("Realizando envio");
-			System.out.println("Me cago en tus muertos 7");
 			os.close();
 			socket.close();
 		}catch(IOException e){

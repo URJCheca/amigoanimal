@@ -29,7 +29,7 @@ public class DatabaseUsersLoader {
 		Cliente cliente3 =new Cliente("alex","alex","alex123","46789143l","alex@hotmail.com","ROLE_USER");
 		Cliente cliente4 =new Cliente("manu","manu","manu123","55098788p","manu@gmail.com","ROLE_USER");
 		Cliente cliente5 =new Cliente("pepe","pepe","pepe123","22750912s","pepe@gmail.com","ROLE_USER");
-		
+		Cliente cliente6 =new Cliente("josea","josea","josea123","22750912s","joseantoniomm1997.ja@gmail.com","ROLE_USER");
 		
 		Mascota mascota1=new Mascota("Congo","Loro","Yaco","Gris");
 		Mascota mascota2=new Mascota("Fluffy","perro","labrador","canela");
@@ -53,6 +53,7 @@ public class DatabaseUsersLoader {
 		clienteRepository.save(cliente3);
 		clienteRepository.save(cliente4);
 		clienteRepository.save(cliente5);
+		clienteRepository.save(cliente6);
 		
 		
 		
